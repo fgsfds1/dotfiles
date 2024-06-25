@@ -34,7 +34,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "bak";
-            home-manager.users.lw = import ./lw.nix;
+            home-manager.users.lw = (import ./lw.nix) "aya";
           }
           hardware.nixosModules.lenovo-thinkpad-e14-amd
         ];
@@ -50,7 +50,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "bak";
-            home-manager.users.lw = import ./lw.nix;
+            home-manager.users.lw = (import ./lw.nix) "rin";
           }
         ];
       };

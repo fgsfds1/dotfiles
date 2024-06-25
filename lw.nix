@@ -1,4 +1,4 @@
-{
+host : {
   config,
   pkgs,
   ...
@@ -6,17 +6,19 @@
   # Profile version
   home.stateVersion = "24.05";
 
+  # Widely-used variable for a cli editor
   home.sessionVariables = {
     EDITOR = "nvim";
   };
   home.shellAliases = {
+    vim = "nvim";
     nrs = "sudo nixos-rebuild switch";
     nrsf = "sudo nixos-rebuild switch --fast --flake /home/lw/.dotfiles/";
+    #TODO: Remove or change these
     enc = "sudo $EDITOR /etc/nixos/configuration.nix";
     euc = "sudo $EDITOR /etc/nixos/lw-config.nix";
     ehc = "sudo $EDITOR /etc/nixos/hardware-configuration.nix";
     emc = "sudo $EDITOR /etc/nixos/aya.nix";
-    vim = "nvim";
   };
 
   # Theming
@@ -34,6 +36,7 @@
       package = pkgs.adwaita-qt;
     };
   };
+  #TODO: cursors
 
   # Shell
   programs.zsh = {
@@ -46,16 +49,27 @@
     };
   };
 
+  # WM stuff:
+
+  # Enable hyprland
   wayland.windowManager.hyprland.enable = true;
+  # Hyprland setting are all the same for now (thankfully)
   wayland.windowManager.hyprland.settings = import ./hyprland/default.nix;
+  # Common script to launch on all machines using hyprland
   xdg.configFile."hypr/start.sh".source = ./hyprland/start.sh;
   xdg.configFile."hypr/start.sh".executable = true;
-  programs.hyprlock.enable = true; #TODO: load config here!
+  # Per-machine scripts in ./hyprland folder, named after machine hostname
+  xdg.configFile."hypr/host.sh".source = ./hyprland + ("/" + host + ".sh");
+  xdg.configFile."hypr/host.sh".executable = true;
+  # Screen locker TODO:lock screen on inactivity and lid close!
+  programs.hyprlock.enable = true;
+  #TODO: make this per-machine too
   programs.hyprlock.settings = import ./hyprlock/default.nix;
+  # Bar with workspaces, tray etc.
   programs.waybar.enable = true;
   programs.waybar.settings = import ./waybar/default.nix;
   programs.waybar.style = import ./waybar/style.nix;
-  #TODO: and waybar too!
+  # dmenu
   programs.rofi = {
     enable = true;
     package = pkgs.rofi-wayland;
@@ -63,7 +77,13 @@
     location = "center";
     theme = "android_notification";
   };
+  # wallpapers, just copy them all
+  home.file."Pictures/wallpapers".enable = true;
+  home.file."Pictures/wallpapers".source = ./wallpapers;
+  # home.file."Pictures/wallpapers".recursive = true;
 
+
+  # Git
   programs.git = {
     enable = true;
     lfs.enable = true;
@@ -78,10 +98,13 @@
     profiles = {};
   };
 
+  # Media player
   programs.mpv.enable = true;
 
+  # Main editor TODO: configure this shit
   programs.neovim.enable = true;
 
+  # Terminal TODO: configure keybinds
   programs.alacritty = {
     enable = true;
     settings = {

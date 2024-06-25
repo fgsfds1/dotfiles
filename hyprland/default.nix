@@ -7,6 +7,7 @@
   "$browser" = "firefox";
   "$locker" = "hyprlock";
   "$startscript" = "~/.config/hypr/start.sh";
+  "$hostscript" = "~/.config/hypr/host.sh";
 
   env = [
     "XCURSOR_SIZE,48"
@@ -181,7 +182,7 @@
 
   windowrulev2 = "suppressevent maximize, class:.*"; # You'll probably like this.
 
-  exec-once = "bash $startscript";
+  exec-once = ["bash $startscript" "bash $hostscript"];
   # exec-once = $terminal
   # exec-once = nm-applet &
   # exec-once = waybar & hyprpaper & firefox

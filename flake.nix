@@ -27,6 +27,7 @@
         system = "x86_64-linux";
         modules = [
 	  ./aya-hardware-configuration.nix
+	  ./aya.nix
           ./configuration.nix
           home-manager.nixosModules.home-manager
           {
@@ -42,6 +43,7 @@
         system = "x86_64-linux";
         modules = [
 	  ./rin-hardware-configuration.nix
+	  ./rin.nix
           ./configuration.nix
           home-manager.nixosModules.home-manager
           {

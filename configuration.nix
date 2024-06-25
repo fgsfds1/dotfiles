@@ -12,12 +12,6 @@
     ./aya.nix
   ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.initrd.luks.devices."luks-73877223-a2eb-481e-9e53-f1ae06542c82".device = "/dev/disk/by-uuid/73877223-a2eb-481e-9e53-f1ae06542c82";
-  networking.hostName = "aya"; # Define your hostname.
   services.avahi = {
     enable = true;
     nssmdns4 = true;

@@ -1,15 +1,16 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./aya.nix
-    ];
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./aya.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -18,13 +19,13 @@
   boot.initrd.luks.devices."luks-73877223-a2eb-481e-9e53-f1ae06542c82".device = "/dev/disk/by-uuid/73877223-a2eb-481e-9e53-f1ae06542c82";
   networking.hostName = "aya"; # Define your hostname.
   services.avahi = {
-  	enable = true;
-  	nssmdns4 = true;
-	publish = {
-		enable = true;
-		addresses = true;
-		workstation = true;
-	};
+    enable = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
+    };
   };
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -65,7 +66,6 @@
   #      };
   #};
 
-
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;
   programs.hyprlock.enable = true;
@@ -101,8 +101,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
 
@@ -132,10 +130,10 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    (nerdfonts.override {fonts = ["JetBrainsMono"];})
     dejavu_fonts
     noto-fonts
     noto-fonts-cjk
@@ -143,7 +141,7 @@
     cm_unicode
     corefonts
   ];
-    
+
   security.polkit.enable = true;
 
   # Install firefox.
@@ -154,36 +152,35 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-     wget
-     htop
-     nmap
-     waybar
-     dunst
-     libnotify
-     swww
-     alacritty
-     konsole
-     rofi-wayland
-     networkmanagerapplet
-     gparted
-     exfat
-     unrar
-     brightnessctl
-     where-is-my-sddm-theme
-     blueman
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget
+    htop
+    nmap
+    waybar
+    dunst
+    libnotify
+    swww
+    alacritty
+    konsole
+    rofi-wayland
+    networkmanagerapplet
+    gparted
+    exfat
+    unrar
+    brightnessctl
+    where-is-my-sddm-theme
+    blueman
   ];
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-kde ];
+    extraPortals = [pkgs.xdg-desktop-portal-kde];
   };
 
   users.users.lw = {
     isNormalUser = true;
     description = "lw";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     shell = pkgs.zsh;
   };
-
 }

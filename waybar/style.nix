@@ -1,33 +1,33 @@
 ''
-* {
-    border: none;
-    border-radius: 5px;
-    font-family: JetBrainsMono Nerd Font;
-    color: #ffffff;
-}
+  * {
+      border: none;
+      border-radius: 5px;
+      font-family: JetBrainsMono Nerd Font;
+      color: #ffffff;
+  }
 
-window#waybar {
-	border-radius: 0px;
-	background: #303030;
-}
+  window#waybar {
+  	border-radius: 0px;
+  	background: #303030;
+  }
 
-.modules-left, .modules-center, .modules-right {
+  .modules-left, .modules-center, .modules-right {
 
-	margin: 0px 5px;
-}
+  	margin: 0px 5px;
+  }
 
-#workspaces, #window, #bluetooth, #cpu, #memory, #pulseaudio, #network, #battery, #language, #tray, #clock {
-	background: #505050;
-	margin: 5px 5px;
-	padding: 0px 5px;
-}
+  #workspaces, #window, #bluetooth, #cpu, #memory, #pulseaudio, #network, #battery, #language, #tray, #clock {
+  	background: #505050;
+  	margin: 5px 5px;
+  	padding: 0px 5px;
+  }
 
-window#waybar.empty #window {
-	color: #000000;
-	padding: 0px 0px;
-}
+  window#waybar.empty #window {
+  	color: #000000;
+  	padding: 0px 0px;
+  }
 
-#language {
-	min-width: 20px;
-}
+  #language {
+  	min-width: 20px;
+  }
 ''

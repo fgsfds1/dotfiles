@@ -1,42 +1,42 @@
 {
-	mainBar = {
-		layer = "top";
-		position = "bottom";
-		height = 32;
+  mainBar = {
+    layer = "top";
+    position = "bottom";
+    height = 32;
 
-		modules-left = [ "hyprland/workspaces" "hyprland/window" ];
-		modules-right = [ "cpu" "memory" "pulseaudio" "network" "battery" "hyprland/language" "tray" "clock"];
+    modules-left = ["hyprland/workspaces" "hyprland/window"];
+    modules-right = ["cpu" "memory" "pulseaudio" "network" "battery" "hyprland/language" "tray" "clock"];
 
-		"hyprland/window" = {
-			icon = true;
-		};
+    "hyprland/window" = {
+      icon = true;
+    };
 
-		pulseaudio = {
-			format = "  {volume:3}%";
-		};
+    pulseaudio = {
+      format = "  {volume:3}%";
+    };
 
-		cpu = {
-			interval = 1;
-			format = "  {usage:3}% @ {avg_frequency:>}";
-		};
+    cpu = {
+      interval = 1;
+      format = "  {usage:3}% @ {avg_frequency:>.1}";
+    };
 
-		memory = {
-			interval = 1;
-			format = "  {used:>}/{swapUsed:>}";
-		};
+    memory = {
+      interval = 1;
+      format = "  {used:>}/{swapUsed:>}";
+    };
 
-		network = {
-			interval = 5;
-			format-ethernet = "  {ipaddr}";
-			format-wifi = "  {essid} @ {signaldBm:2}";
-		};
+    network = {
+      interval = 5;
+      format-ethernet = "  {ipaddr}";
+      format-wifi = "  {essid} @ {signaldBm:2}";
+    };
 
-		battery = {
-			format = "  {time:>} @ {capacity:3}%";
-		};
+    battery = {
+      format = "  {time:>} @ {capacity:3}%";
+    };
 
-		"hyprland/language" = {
-			format = "{short:>}";
-		};
-	};
+    "hyprland/language" = {
+      format = "{short:>}";
+    };
+  };
 }

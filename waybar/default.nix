@@ -17,12 +17,12 @@
 
     cpu = {
       interval = 1;
-      format = "  {usage:3}% @ {avg_frequency:>.1}";
+      format = "  {usage:3}% @ {avg_frequency:>3.1f}";
     };
 
     memory = {
       interval = 1;
-      format = "  {used:>}/{swapUsed:>}";
+      format = "  {used:>4.1f}/{swapUsed:>4.1f}";
     };
 
     network = {

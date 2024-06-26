@@ -1,8 +1,8 @@
-host : {
+host : let monitor_scale = (import ./${host}.nix).monitor_scale; in {
 
   #host_config = import ./${host}.nix;
-  #monitor = ",preferred,auto,${host_config.monitor_scale}";
-  monitor = ",preferred,auto,1.25";
+  monitor = ",preferred,auto,${toString monitor_scale}";
+  #monitor = ",preferred,auto,1.25";
 
   "$terminal" = "alacritty";
   "$fileManager" = "dolphin";

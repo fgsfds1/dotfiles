@@ -54,7 +54,7 @@ host : {
   # Enable hyprland
   wayland.windowManager.hyprland.enable = true;
   # Hyprland setting are all the same for now (thankfully)
-  wayland.windowManager.hyprland.settings = import ./hyprland/default.nix;
+  wayland.windowManager.hyprland.settings = (import ./hyprland/default.nix) host;
   # Common script to launch on all machines using hyprland
   xdg.configFile."hypr/start.sh".source = ./hyprland/start.sh;
   xdg.configFile."hypr/start.sh".executable = true;
@@ -134,5 +134,6 @@ host : {
     vesktop
     neovide
     glxinfo
+    hyprshot
   ];
 }

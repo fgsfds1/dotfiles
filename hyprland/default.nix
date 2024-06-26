@@ -1,4 +1,7 @@
-{
+host : {
+
+  #host_config = import ./${host}.nix;
+  #monitor = ",preferred,auto,${host_config.monitor_scale}";
   monitor = ",preferred,auto,1.25";
 
   "$terminal" = "alacritty";
@@ -10,8 +13,9 @@
   "$hostscript" = "~/.config/hypr/host.sh";
 
   env = [
-    "XCURSOR_SIZE,48"
-    "HYPRCURSOR_SIZE,48"
+    "XCURSOR_SIZE,64"
+    "HYPRCURSOR_SIZE,64"
+    "HYPRSHOT_DIR,/home/lw/Pictures/screenshots"
   ];
 
   general = {
@@ -165,6 +169,8 @@
     "$mainMod, mouse_up, workspace, e-1"
 
     "$mainMod, semicolon, exec, $locker"
+
+    ", PRINT, exec, hyprshot -m region"
   ];
 
   # Move/resize windows with mainMod + LMB/RMB and dragging

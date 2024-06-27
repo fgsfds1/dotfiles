@@ -6,9 +6,10 @@ host : let monitor_scale = (import ./${host}.nix).monitor_scale; in {
 
   "$terminal" = "alacritty";
   "$fileManager" = "dolphin";
-  "$menu" = "rofi -show drun -show-icons";
+  "$menu" = "rofi";
+  "$menuargs" = "-show drun -show-icons";
   "$browser" = "firefox";
-  "$locker" = "hyprlock";
+  "$locker" = "hyprlock --immediate";
   "$startscript" = "~/.config/hypr/start.sh";
   "$hostscript" = "~/.config/hypr/host.sh";
 
@@ -116,13 +117,13 @@ host : let monitor_scale = (import ./${host}.nix).monitor_scale; in {
 
   "$mainMod" = "SUPER"; # Sets "Windows" key as main modifier
 
+  # These are just regular binds
   bind = [
     "$mainMod, Q, killactive"
     "$mainMod, Return, exec, $terminal"
     "$mainMod, E, exec, $fileManager"
     "$mainMod, b, exec, $browser"
     "$mainMod, f, togglefloating,"
-    "$mainMod, R, exec, $menu"
     "$mainMod, P, pseudo," # dwindle
     "$mainMod SHIFT, Q, exit"
 
@@ -168,18 +169,30 @@ host : let monitor_scale = (import ./${host}.nix).monitor_scale; in {
     "$mainMod, mouse_down, workspace, e+1"
     "$mainMod, mouse_up, workspace, e-1"
 
-    "$mainMod, semicolon, exec, $locker"
-
     ", PRINT, exec, hyprshot -m region"
+
+    "$mainMod, semicolon, exec, $locker"
+    ", switch:Lid Switch, exec, $locker"
   ];
 
+  # Binds that work on the lockscreen
+  bindl = [
+  ];
+
+  # Binds that open/close programs
+  bindr = [
+    "$mainMod, R, exec, pkill $menu || $menu $menuargs"
+  ];
+
+  # Mouse binds
   # Move/resize windows with mainMod + LMB/RMB and dragging
   bindm = [
     "$mainMod, mouse:272, movewindow"
     "$mainMod, mouse:273, resizewindow"
   ];
 
-  binde = [
+  # Binds that work on lockscreen (l) and can repeat (e)
+  bindel = [
     ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
     ", XF86AudioLowerVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-"
     ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"

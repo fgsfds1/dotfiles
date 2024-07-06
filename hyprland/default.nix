@@ -120,12 +120,13 @@ host : let monitor_scale = (import ./${host}.nix).monitor_scale; in {
   # These are just regular binds
   bind = [
     "$mainMod, Q, killactive"
+    "$mainMod SHIFT, Q, killactive"
     "$mainMod, Return, exec, $terminal"
     "$mainMod, E, exec, $fileManager"
     "$mainMod, b, exec, $browser"
     "$mainMod, f, togglefloating,"
     "$mainMod, P, pseudo," # dwindle
-    "$mainMod SHIFT, Q, exit"
+    "$mainMod SHIFT, K, exit"
 
     "$mainMod, left, movefocus, l"
     "$mainMod, right, movefocus, r"
@@ -171,8 +172,6 @@ host : let monitor_scale = (import ./${host}.nix).monitor_scale; in {
 
     ", PRINT, exec, hyprshot -m region"
 
-    "$mainMod, semicolon, exec, $locker"
-    ", switch:Lid Switch, exec, $locker"
   ];
 
   # Binds that work on the lockscreen
@@ -197,6 +196,8 @@ host : let monitor_scale = (import ./${host}.nix).monitor_scale; in {
     ", XF86AudioLowerVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-"
     ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
     ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
+    "$mainMod, semicolon, exec, $locker"
+    ", switch:Lid Switch, exec, $locker"
   ];
 
   windowrulev2 = "suppressevent maximize, class:.*"; # You'll probably like this.

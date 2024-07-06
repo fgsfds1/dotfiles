@@ -12,6 +12,7 @@
     ./aya.nix
   ];
 
+  # Zeroconf
   services.avahi = {
     enable = true;
     nssmdns4 = true;
@@ -21,6 +22,7 @@
       workstation = true;
     };
   };
+
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -60,10 +62,13 @@
   #      };
   #};
 
-  programs.hyprland.enable = true;
-  programs.hyprland.xwayland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
   programs.hyprlock.enable = true;
   #security.pam.services.hyprlock = {};
+  # For Electron apps to run under Wayland (and unfuckup scaling)
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Configure keymap in X11
@@ -75,6 +80,14 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+
+  # Enable samba
+  services.samba.enable = true;
+
+  # Automount stuff
+  services.devmon.enable = true;
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
@@ -146,24 +159,29 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    # Standard stuff that should be avaliable system-wide
+    vim
     wget
     htop
     nmap
+    exfat
+    unrar
+    brightnessctl
+    blueman
+    cifs-utils
+
+    # Hyprland + DE stuff
     waybar
     dunst
     libnotify
     swww
     alacritty
-    konsole
     rofi-wayland
     networkmanagerapplet
-    gparted
-    exfat
-    unrar
-    brightnessctl
     where-is-my-sddm-theme
-    blueman
+    # PolicyKit provider
+    lxqt.lxqt-policykit
+
   ];
 
   xdg.portal = {

@@ -3,6 +3,7 @@ host : {
   pkgs,
   ...
 }: {
+
   # Profile version
   home.stateVersion = "24.05";
 
@@ -27,6 +28,10 @@ host : {
     theme = {
       name = "adw-gtk3-dark";
       package = pkgs.adw-gtk3;
+    };
+    iconTheme = {
+      name = "gruvbox-dark-icons-gtk";
+      #package = pkgs.gruvbox-icons-gtk;
     };
   };
   qt = {
@@ -102,7 +107,13 @@ host : {
   programs.mpv.enable = true;
 
   # Main editor TODO: configure this shit
-  programs.neovim.enable = true;
+  # programs.neovim.enable = true;
+  programs.nixvim = {
+    enable = true;
+    colorschemes.gruvbox.enable = true;
+    plugins.lightline.enable = true;
+  };
+
 
   # Terminal TODO: configure keybinds
   programs.alacritty = {
@@ -135,5 +146,7 @@ host : {
     neovide
     glxinfo
     hyprshot
+    libreoffice
+    dolphin
   ];
 }

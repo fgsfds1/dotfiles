@@ -181,7 +181,6 @@
     where-is-my-sddm-theme
     # PolicyKit provider
     lxqt.lxqt-policykit
-
   ];
 
   xdg.portal = {

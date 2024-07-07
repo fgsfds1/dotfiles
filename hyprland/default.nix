@@ -1,5 +1,6 @@
-host : let monitor_scale = (import ./${host}.nix).monitor_scale; in {
-
+host: let
+  monitor_scale = (import ./${host}.nix).monitor_scale;
+in {
   #host_config = import ./${host}.nix;
   monitor = ",preferred,auto,${toString monitor_scale}";
   #monitor = ",preferred,auto,1.25";
@@ -171,7 +172,6 @@ host : let monitor_scale = (import ./${host}.nix).monitor_scale; in {
     "$mainMod, mouse_up, workspace, e-1"
 
     ", PRINT, exec, hyprshot -m region"
-
   ];
 
   # Binds that work on the lockscreen

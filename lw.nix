@@ -1,9 +1,8 @@
-host : {
+host: {
   config,
   pkgs,
   ...
 }: {
-
   # Profile version
   home.stateVersion = "24.05";
 
@@ -88,7 +87,6 @@ host : {
   home.file."Pictures/wallpapers".source = ./wallpapers;
   # home.file."Pictures/wallpapers".recursive = true;
 
-
   # Git
   programs.git = {
     enable = true;
@@ -111,7 +109,7 @@ host : {
   # programs.neovim.enable = true;
   programs.nixvim = {
     enable = true;
-    colorschemes.tokyonight.enable = true;
+    colorschemes.kanagawa.enable = true;
     plugins.lightline.enable = true;
     options = {
       number = true;
@@ -122,8 +120,6 @@ host : {
       wrap = true;
     };
   };
-	
-
 
   # Terminal TODO: configure keybinds
   programs.alacritty = {
@@ -157,7 +153,7 @@ host : {
     glxinfo
     hyprshot
     libreoffice
-		#TODO: figure out and fix fm
+    #TODO: figure out and fix fm
     dolphin
   ];
 }

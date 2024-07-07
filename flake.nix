@@ -33,20 +33,20 @@
       aya = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-	  ./aya-hardware-configuration.nix
-	  ./aya.nix
+          ./aya-hardware-configuration.nix
+          ./aya.nix
           ./configuration.nix
-	  ./wireguard/aya.nix
+          ./wireguard/aya.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "bak";
             # home-manager.users.lw = (import ./lw.nix) "aya";
-	    home-manager.users.lw.imports = [
-	      nixvim.homeManagerModules.nixvim
-	      ((import ./lw.nix) "aya")
-	    ];
+            home-manager.users.lw.imports = [
+              nixvim.homeManagerModules.nixvim
+              ((import ./lw.nix) "aya")
+            ];
           }
           hardware.nixosModules.lenovo-thinkpad-e14-amd
         ];
@@ -54,20 +54,19 @@
       rin = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-	  ./rin-hardware-configuration.nix
-	  ./rin.nix
+          ./rin-hardware-configuration.nix
+          ./rin.nix
           ./configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "bak";
-	    home-manager.users.lw.imports = [
-	      nixvim.homeManagerModules.nixvim
-	      ((import ./lw.nix) "aya")
-	    ];
+            home-manager.users.lw.imports = [
+              nixvim.homeManagerModules.nixvim
+              ((import ./lw.nix) "aya")
+            ];
           }
-	  nixvim.homeManagerModules.nixvim
         ];
       };
     };

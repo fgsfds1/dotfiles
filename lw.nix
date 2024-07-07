@@ -31,6 +31,7 @@ host : {
     };
     iconTheme = {
       name = "gruvbox-dark-icons-gtk";
+      #TODO: fix
       #package = pkgs.gruvbox-icons-gtk;
     };
   };
@@ -110,9 +111,18 @@ host : {
   # programs.neovim.enable = true;
   programs.nixvim = {
     enable = true;
-    colorschemes.gruvbox.enable = true;
+    colorschemes.tokyonight.enable = true;
     plugins.lightline.enable = true;
+    options = {
+      number = true;
+      colorcolumn = "80";
+      relativenumber = true;
+      shiftwidth = 2;
+      tabstop = 2;
+      wrap = true;
+    };
   };
+	
 
 
   # Terminal TODO: configure keybinds
@@ -147,6 +157,7 @@ host : {
     glxinfo
     hyprshot
     libreoffice
+		#TODO: figure out and fix fm
     dolphin
   ];
 }

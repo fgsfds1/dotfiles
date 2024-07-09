@@ -111,7 +111,7 @@ host: {
     enable = true;
     colorschemes.kanagawa.enable = true;
     plugins.lightline.enable = true;
-    options = {
+    opts = {
       number = true;
       colorcolumn = "80";
       relativenumber = true;
@@ -131,6 +131,23 @@ host: {
       };
     };
   };
+
+	programs.kitty = {
+	  enable = true;
+		font = {
+		  name = "JetBrainsMono Nerd Font";
+			size = 12;
+		};
+		theme = "Darkside";
+	};
+	
+	programs.ranger = {
+	  enable = true;
+		settings = {
+		  preview_images = true;
+			preview_images_method = "kitty";
+		};
+	};
 
   # Packages
   home.packages = with pkgs; [
@@ -155,5 +172,9 @@ host: {
     libreoffice
     #TODO: figure out and fix fm
     dolphin
+		xfce.thunar
+		lf
+		ranger
+		mc
   ];
 }

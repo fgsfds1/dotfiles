@@ -5,7 +5,7 @@ in {
   monitor = ",preferred,auto,${toString monitor_scale}";
   #monitor = ",preferred,auto,1.25";
 
-  "$terminal" = "alacritty";
+  "$terminal" = "kitty";
   "$fileManager" = "dolphin";
   "$menu" = "rofi";
   "$menuargs" = "-show drun -show-icons";
@@ -181,6 +181,7 @@ in {
   # Binds that open/close programs
   bindr = [
     "$mainMod, R, exec, pkill $menu || $menu $menuargs"
+    "$mainMod, T, exec, pkill $menu || $menu $menuargs"
   ];
 
   # Mouse binds

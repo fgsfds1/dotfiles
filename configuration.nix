@@ -161,6 +161,8 @@
   environment.systemPackages = with pkgs; [
     # Standard stuff that should be avaliable system-wide
     vim
+		lf
+		mc
     wget
     htop
     nmap

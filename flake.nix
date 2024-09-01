@@ -3,10 +3,10 @@
 
   inputs = {
     nixpkgs = {
-      url = "github:NixOS/nixpkgs/nixos-24.05";
+      url = "github:NixOS/nixpkgs/nixos-unstable";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager";
       # The `follows` keyword in inputs is used for inheritance.
       # Here, `inputs.nixpkgs` of home-manager is kept consistent with
       # the `inputs.nixpkgs` of the current flake,
@@ -17,9 +17,12 @@
       url = "github:NixOS/nixos-hardware";
     };
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-24.05";
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+		nur = {
+			url = "github:nix-community/NUR";
+		};
   };
 
   outputs = inputs @ {
@@ -27,6 +30,7 @@
     home-manager,
     hardware,
     nixvim,
+		nur,
     ...
   }: {
     nixosConfigurations = {
@@ -37,6 +41,7 @@
           ./aya.nix
           ./configuration.nix
           ./wireguard/aya.nix
+					nur.nixosModules.nur
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -46,7 +51,7 @@
             home-manager.users.lw.imports = [
               nixvim.homeManagerModules.nixvim
               ((import ./lw.nix) "aya")
-            ];
+						];
           }
           hardware.nixosModules.lenovo-thinkpad-e14-amd
         ];
@@ -57,6 +62,7 @@
           ./rin-hardware-configuration.nix
           ./rin.nix
           ./configuration.nix
+					nur.nixosModules.nur
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

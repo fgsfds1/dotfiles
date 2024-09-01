@@ -1,6 +1,7 @@
 host: {
   config,
   pkgs,
+	nur,
   ...
 }: {
   # Profile version
@@ -14,6 +15,7 @@ host: {
     vim = "nvim";
     nrs = "sudo nixos-rebuild switch";
     nrsf = "sudo nixos-rebuild switch --fast --flake /home/lw/.dotfiles/";
+    nrsfc = "sudo nixos-rebuild switch --fast --flake /home/lw/.dotfiles/ --option eval-cache false";
     #TODO: Remove or change these
     enc = "sudo $EDITOR /etc/nixos/configuration.nix";
     euc = "sudo $EDITOR /etc/nixos/lw-config.nix";
@@ -49,7 +51,7 @@ host: {
     history.size = 30000;
     oh-my-zsh = {
       enable = true;
-      plugins = ["git" "thefuck"];
+      plugins = ["git"]; # "thefuck"];
       theme = "rgm";
     };
   };
@@ -107,19 +109,7 @@ host: {
 
   # Main editor TODO: configure this shit
   # programs.neovim.enable = true;
-  programs.nixvim = {
-    enable = true;
-    colorschemes.kanagawa.enable = true;
-    plugins.lightline.enable = true;
-    opts = {
-      number = true;
-      colorcolumn = "80";
-      relativenumber = true;
-      shiftwidth = 2;
-      tabstop = 2;
-      wrap = true;
-    };
-  };
+  programs.nixvim = import ./nixvim/default.nix;
 
   # Terminal TODO: configure keybinds
   programs.alacritty = {
@@ -164,17 +154,30 @@ host: {
     mpv
     vlc
     kate
-    thefuck
+		feh
+    # thefuck
     vesktop
     neovide
     glxinfo
     hyprshot
     libreoffice
     #TODO: figure out and fix fm
-    dolphin
 		xfce.thunar
-		lf
 		ranger
-		mc
+		keepassxc
+		ollama
+
+		pavucontrol
+
+		nekoray
+
+		# oterm
+		#nur.repos.dustinblackman.oatmeal
+		python312Packages.pynvim
+
+		steam
+		godot_4
+		gimp
+		krita
   ];
 }

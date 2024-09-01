@@ -68,8 +68,6 @@
   };
   programs.hyprlock.enable = true;
   #security.pam.services.hyprlock = {};
-  # For Electron apps to run under Wayland (and unfuckup scaling)
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -136,7 +134,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "unstable"; # Did you read the comment?
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   fonts.packages = with pkgs; [
@@ -168,9 +166,15 @@
     nmap
     exfat
     unrar
+		unzip
     brightnessctl
     blueman
     cifs-utils
+
+		# Python
+		python312
+		python312Packages.pip
+		#python312Packages.pynvim
 
     # Hyprland + DE stuff
     waybar
@@ -191,6 +195,7 @@
   };
 
   users.users.lw = {
+		uid = 1337;
     isNormalUser = true;
     description = "lw";
     extraGroups = ["networkmanager" "wheel"];

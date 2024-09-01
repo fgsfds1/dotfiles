@@ -16,11 +16,21 @@
   	margin: 0px 5px;
   }
 
-  #workspaces, #window, #bluetooth, #cpu, #memory, #pulseaudio, #network, #battery, #language, #tray, #clock {
+  #window, #bluetooth, #cpu, #memory, #pulseaudio, #network, #battery, #language, #tray, #clock {
   	background: #505050;
   	margin: 5px 5px;
   	padding: 0px 5px;
   }
+
+	#workspaces {
+  	background: #505050;
+	  margin: 5px 5px;
+		padding: 0px;
+	}
+
+	#workspaces button.active {
+		background: #303030;
+	}
 
   window#waybar.empty #window {
   	color: #000000;

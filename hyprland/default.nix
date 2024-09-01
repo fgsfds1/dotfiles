@@ -18,7 +18,14 @@ in {
     "XCURSOR_SIZE,64"
     "HYPRCURSOR_SIZE,64"
     "HYPRSHOT_DIR,/home/lw/Pictures/screenshots"
+		# Electron scaling with hyprland
+		"NIXOS_OZONE_WL,1"
   ];
+
+	# Scaling xwayland apps off
+	xwayland = {
+		force_zero_scaling = true;
+	};
 
   general = {
     gaps_in = 2;
@@ -114,6 +121,10 @@ in {
       name = "etps/2-elantech-touchpad";
       enabled = false;
     }
+    {
+      name = "logitech-pebble-mouse";
+			accel_profile = "flat";
+    }
   ];
 
   "$mainMod" = "SUPER"; # Sets "Windows" key as main modifier
@@ -127,7 +138,7 @@ in {
     "$mainMod, b, exec, $browser"
     "$mainMod, f, togglefloating,"
     "$mainMod, P, pseudo," # dwindle
-    "$mainMod SHIFT, K, exit"
+    "$mainMod CTRL SHIFT, K, exit"
 
     "$mainMod, left, movefocus, l"
     "$mainMod, right, movefocus, r"

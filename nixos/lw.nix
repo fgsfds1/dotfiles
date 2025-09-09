@@ -14,8 +14,8 @@ host: {
   home.shellAliases = {
     vim = "nvim";
     nrs = "sudo nixos-rebuild switch";
-    nrsf = "sudo nixos-rebuild switch --fast --flake /home/lw/.dotfiles/";
-    nrsfc = "sudo nixos-rebuild switch --fast --flake /home/lw/.dotfiles/ --option eval-cache false";
+    nrsf = "sudo nixos-rebuild switch --fast --flake /home/lw/projects/dotfiles/nixos/";
+    nrsfc = "sudo nixos-rebuild switch --fast --flake /home/lw/projects/dotfiles/nixos/ --option eval-cache false";
     #TODO: Remove or change these
     enc = "sudo $EDITOR /etc/nixos/configuration.nix";
     euc = "sudo $EDITOR /etc/nixos/lw-config.nix";

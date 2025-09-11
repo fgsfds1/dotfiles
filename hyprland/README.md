@@ -14,9 +14,15 @@ hyprland/
 │   └── hyprland.conf      # ThinkPad E14 AMD (HiDPI) config
 ├── rin/
 │   └── hyprland.conf      # Standard DPI config
+├── utsuho/
+│   └── hyprland.conf      # Main desktop PC config
 ├── waybar/
 │   ├── config.json        # Waybar configuration
 │   └── style.css          # Waybar styling
+├── rofi/
+│   └── config.rasi        # Application launcher configuration
+├── dunst/
+│   └── dunstrc            # Notification daemon configuration
 └── hyprlock/
     └── hyprlock.conf      # Screen lock configuration
 ```
@@ -28,8 +34,9 @@ hyprland/
 ./install.sh
 
 # Or specify machine configuration
-./install.sh aya    # For ThinkPad with HiDPI
-./install.sh rin    # For standard DPI setup
+./install.sh aya     # For ThinkPad with HiDPI
+./install.sh rin     # For standard DPI setup  
+./install.sh utsuho  # For main desktop PC
 ```
 
 ## ⚙️ Configuration Details
@@ -77,6 +84,18 @@ hyprland/
 - **Mouse**: Flat acceleration profile for Logitech Pebble
 - **Touchpad**: Disabled by default
 
+#### Notifications
+- **Daemon**: Dunst with modern styling
+- **Theme**: Dark with accent colors matching window borders
+- **Position**: Top-right corner with rounded corners
+- **Features**: Progress bars, icons, action buttons, history
+
+#### Theming
+- **Qt**: Fusion style with qt5ct and custom dark color scheme
+- **GTK**: Adwaita dark theme
+- **Icons**: Adwaita icon theme
+- **Wayland**: Native Qt and GTK support with proper scaling
+
 #### Environment
 - **Cursor size**: 64px
 - **Screenshot directory**: `~/Pictures/screenshots`
@@ -103,6 +122,9 @@ rofi-wayland
 
 # Notifications
 dunst
+
+# Qt/GTK theming
+qt5ct
 
 # Terminal
 kitty

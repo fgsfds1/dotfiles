@@ -1,0 +1,64 @@
+/**
+ * Rofi Configuration
+ * Extracted from NixOS configuration
+ * Theme: android_notification
+ */
+
+configuration {
+    // Basic settings
+    modi: "drun,run,ssh,window";
+    width: 50;
+    lines: 12;
+    columns: 1;
+    
+    // Font configuration
+    font: "Input 12";
+    
+    // Positioning
+    location: 0;  // center
+    fixed-num-lines: true;
+    show-icons: true;
+    
+    // Appearance
+    terminal: "kitty";
+    ssh-client: "ssh";
+    ssh-command: "{terminal} -e {ssh-client} {host} [-p {port}]";
+    run-command: "{cmd}";
+    run-list-command: "";
+    run-shell-command: "{terminal} -e {cmd}";
+    
+    // Window settings
+    window-format: "{w}    {c}   {t}";
+    
+    // Behavior
+    case-sensitive: false;
+    cycle: true;
+    sidebar-mode: false;
+    eh: 1;
+    auto-select: false;
+    parse-hosts: true;
+    parse-known-hosts: true;
+    
+    // Combi settings
+    combi-modi: "window,drun,ssh";
+    matching: "fuzzy";
+    tokenize: true;
+    
+    // History and caching
+    max-history-size: 25;
+    
+    // Performance
+    lazy-grab: false;
+    
+    // Key bindings (minimal set to avoid conflicts)
+    kb-accept-entry: "Return,KP_Enter";
+    kb-accept-custom: "Control+Return";
+    kb-row-up: "Up";
+    kb-row-down: "Down";
+    kb-cancel: "Escape";
+    kb-remove-char-back: "BackSpace";
+    kb-remove-char-forward: "Delete";
+}
+
+// Include android_notification theme
+@theme "android_notification"

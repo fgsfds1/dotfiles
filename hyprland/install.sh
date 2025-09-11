@@ -50,6 +50,8 @@ print_status "Creating configuration directories..."
 mkdir -p "$CONFIG_DIR/hypr/common"
 mkdir -p "$CONFIG_DIR/waybar"
 mkdir -p "$CONFIG_DIR/hypr"
+mkdir -p "$CONFIG_DIR/rofi"
+mkdir -p "$CONFIG_DIR/dunst"
 
 # Copy configurations
 print_status "Installing Hyprland configurations..."
@@ -73,6 +75,18 @@ if [[ -f "hyprlock/hyprlock.conf" ]]; then
     print_status "✓ Installed Hyprlock configuration"
 fi
 
+# Copy rofi config
+if [[ -f "rofi/config.rasi" ]]; then
+    cp rofi/config.rasi "$CONFIG_DIR/rofi/"
+    print_status "✓ Installed Rofi configuration"
+fi
+
+# Copy dunst config
+if [[ -f "dunst/dunstrc" ]]; then
+    cp dunst/dunstrc "$CONFIG_DIR/dunst/"
+    print_status "✓ Installed Dunst configuration"
+fi
+
 # Create wallpapers directory and copy wallpapers if they exist
 if [[ -d "wallpapers" ]]; then
     mkdir -p "$HOME/Pictures/wallpapers"
@@ -87,6 +101,8 @@ print_status "  - Hostname: $HOSTNAME"
 print_status "  - Hyprland config: ~/.config/hypr/hyprland.conf"
 print_status "  - Waybar config: ~/.config/waybar/config"
 print_status "  - Hyprlock config: ~/.config/hypr/hyprlock.conf"
+print_status "  - Rofi config: ~/.config/rofi/config.rasi"
+print_status "  - Dunst config: ~/.config/dunst/dunstrc"
 print_status "  - Wallpapers: ~/Pictures/wallpapers/"
 echo
 print_status "To start Hyprland, run: Hyprland"

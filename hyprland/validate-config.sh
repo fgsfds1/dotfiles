@@ -155,10 +155,29 @@ main() {
         echo
     fi
     
+    # Check live Hyprland config errors if available
+    if command -v hyprctl >/dev/null 2>&1 && pgrep -x "Hyprland" >/dev/null; then
+        echo -e "${BLUE}Checking live Hyprland configuration...${NC}"
+        local config_errors=$(hyprctl configerrors 2>/dev/null)
+        if [[ -z "$config_errors" ]] || [[ "$config_errors" == "[]" ]]; then
+            print_success "✓ No live configuration errors detected"
+        else
+            print_error "✗ Live configuration errors found:"
+            echo "$config_errors"
+            total_errors=$((total_errors + 1))
+        fi
+        echo
+    fi
+    
     # Summary
     echo "=================================="
     if [[ $total_errors -eq 0 ]]; then
         print_success "All configurations validated successfully!"
+        if command -v hyprctl >/dev/null 2>&1 && pgrep -x "Hyprland" >/dev/null; then
+            print_status "Tip: Configuration is valid and no live errors detected!"
+        else
+            print_status "Tip: Run this on a system with Hyprland running for live validation"
+        fi
         exit 0
     else
         print_error "Found $total_errors configuration error(s)"

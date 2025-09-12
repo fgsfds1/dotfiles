@@ -1,21 +1,21 @@
-# Native Hyprland Configuration
+# Native Desktop Configuration
 
-This directory contains native Hyprland configuration files extracted from the NixOS setup. These configurations can be used on any system with Hyprland installed.
+This directory contains native desktop configuration files extracted from the NixOS setup. These configurations provide a complete Hyprland-based desktop environment that can be used on any system with Hyprland installed.
 
 ## 📁 Directory Structure
 
 ```
-hyprland/
+native_configuration/
 ├── README.md              # This file
 ├── install.sh             # Installation script
-├── common/
-│   └── hyprland.conf      # Shared Hyprland configuration
-├── aya/
-│   └── hyprland.conf      # ThinkPad E14 AMD (HiDPI) config
-├── rin/
-│   └── hyprland.conf      # Standard DPI config
-├── utsuho/
-│   └── hyprland.conf      # Main desktop PC config
+├── hyprland/
+│   ├── hyprland.conf      # Shared Hyprland configuration
+│   ├── aya/
+│   │   └── hyprland.conf  # ThinkPad E14 AMD (HiDPI) config
+│   ├── rin/
+│   │   └── hyprland.conf  # Standard DPI config
+│   └── utsuho/
+│       └── hyprland.conf  # Main desktop PC config
 ├── waybar/
 │   ├── config.json        # Waybar configuration
 │   └── style.css          # Waybar styling
@@ -23,6 +23,11 @@ hyprland/
 │   └── config.rasi        # Application launcher configuration
 ├── dunst/
 │   └── dunstrc            # Notification daemon configuration
+├── kitty/
+│   ├── kitty.conf         # Terminal configuration
+│   └── Darkside.conf      # Dark color theme
+├── fonts/                 # Input font files (bundled)
+├── wallpapers/            # Desktop wallpapers
 └── hyprlock/
     └── hyprlock.conf      # Screen lock configuration
 ```
@@ -84,6 +89,12 @@ hyprland/
 - **Mouse**: Flat acceleration profile for Logitech Pebble
 - **Touchpad**: Disabled by default
 
+#### Terminal
+- **Emulator**: Kitty with optimized performance
+- **Font**: Input MonoNarrow (bundled) or JetBrains Mono Nerd Font
+- **Theme**: Darkside (dark color scheme)
+- **Features**: Tabs, scrollback, URL highlighting, mouse support
+
 #### Notifications
 - **Daemon**: Dunst with modern styling
 - **Theme**: Dark with accent colors matching window borders
@@ -132,6 +143,9 @@ kitty
 # File manager
 thunar
 
+# Fonts for terminal
+ttf-jetbrains-mono-nerd
+
 # Network management
 networkmanager
 network-manager-applet
@@ -162,18 +176,19 @@ firefox
 
 1. **Create machine directory**:
    ```bash
-   mkdir newmachine
+   mkdir hyprland/newmachine
    ```
 
 2. **Create machine-specific config**:
    ```bash
-   cp aya/hyprland.conf newmachine/hyprland.conf
+   mkdir hyprland/newmachine
+   cp hyprland/aya/hyprland.conf hyprland/newmachine/hyprland.conf
    ```
 
 3. **Edit the configuration**:
    ```bash
    # Edit monitor scaling and wallpaper
-   nano newmachine/hyprland.conf
+   nano hyprland/newmachine/hyprland.conf
    ```
 
 ### Wallpaper Setup
@@ -200,14 +215,14 @@ If you prefer manual installation:
 
 ```bash
 # Create config directories
-mkdir -p ~/.config/hypr/common
+mkdir -p ~/.config/hypr
 mkdir -p ~/.config/waybar
 
 # Copy common config
-cp common/hyprland.conf ~/.config/hypr/common/
+cp hyprland/hyprland.conf ~/.config/hypr/common.conf
 
 # Copy machine-specific config (replace 'aya' with your machine)
-cp aya/hyprland.conf ~/.config/hypr/hyprland.conf
+cp hyprland/aya/hyprland.conf ~/.config/hypr/hyprland.conf
 
 # Copy waybar config
 cp waybar/config.json ~/.config/waybar/config
@@ -215,6 +230,16 @@ cp waybar/style.css ~/.config/waybar/style.css
 
 # Copy lock screen config
 cp hyprlock/hyprlock.conf ~/.config/hypr/
+
+# Copy kitty config
+mkdir -p ~/.config/kitty
+cp kitty/kitty.conf ~/.config/kitty/
+cp kitty/Darkside.conf ~/.config/kitty/
+
+# Install fonts
+mkdir -p ~/.local/share/fonts
+cp fonts/* ~/.local/share/fonts/
+fc-cache -f
 
 # Copy wallpapers
 mkdir -p ~/Pictures/wallpapers
@@ -243,6 +268,11 @@ mkdir -p ~/Pictures/wallpapers
    - Install `hyprlock` package
    - Verify wallpaper path in config
    - Check PAM configuration
+
+5. **Terminal font issues**
+   - Install JetBrains Mono Nerd Font: `sudo pacman -S ttf-jetbrains-mono-nerd`
+   - Rebuild font cache: `fc-cache -f`
+   - Check available fonts: `kitty +list-fonts | grep -i jetbrains`
 
 ### Performance Optimization
 

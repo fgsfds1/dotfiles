@@ -28,9 +28,10 @@ print_help() {
     echo "Usage: $0 [machine-name]"
     echo
     echo "Available configurations:"
-    for dir in */; do
+    for dir in hyprland/*/; do
         if [[ -f "${dir}hyprland.conf" ]]; then
-            echo "  - ${dir%/}"
+            machine=$(basename "$dir")
+            echo "  - $machine"
         fi
     done
     echo
@@ -70,7 +71,7 @@ fi
 MACHINE="$1"
 
 # Validate machine configuration exists
-if [[ ! -f "$MACHINE/hyprland.conf" ]]; then
+if [[ ! -f "hyprland/$MACHINE/hyprland.conf" ]]; then
     print_error "Configuration not found for machine: $MACHINE"
     echo
     print_help
@@ -85,7 +86,7 @@ if [[ -f "$CONFIG_DIR/hyprland.conf" ]]; then
 fi
 
 # Copy new configuration
-cp "$MACHINE/hyprland.conf" "$CONFIG_DIR/hyprland.conf"
+cp "hyprland/$MACHINE/hyprland.conf" "$CONFIG_DIR/hyprland.conf"
 print_status "✓ Switched to $MACHINE configuration"
 
 # Check if Hyprland is running and offer to reload

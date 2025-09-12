@@ -9,12 +9,13 @@ kitty/
 ├── README.md         # This file
 ├── install.sh        # Installation script
 ├── kitty.conf        # Main Kitty configuration
-├── Darkside.conf     # Darkside color theme
-└── fonts/            # Input font files (bundled)
-    ├── Input_Regular_(InputMonoNarrow_Regular).ttf
-    ├── Input_Bold_(InputMonoNarrow_Bold).ttf
-    ├── Input_Italic_(InputMonoNarrow_Italic).ttf
-    └── Input_BoldItalic_(InputMonoNarrow_BoldItalic).ttf
+└── Darkside.conf     # Darkside color theme
+
+../fonts/             # Input font files (bundled, in parent directory)
+├── Input_Regular_(InputMonoNarrow_Regular).ttf
+├── Input_Bold_(InputMonoNarrow_Bold).ttf
+├── Input_Italic_(InputMonoNarrow_Italic).ttf
+└── Input_BoldItalic_(InputMonoNarrow_BoldItalic).ttf
 ```
 
 ## 🚀 Quick Installation

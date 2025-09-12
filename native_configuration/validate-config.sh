@@ -119,7 +119,7 @@ main() {
     local total_errors=0
     
     # Validate common configuration
-    if validate_config "common/hyprland.conf" "common"; then
+    if validate_config "hyprland/hyprland.conf" "common"; then
         echo
     else
         total_errors=$((total_errors + 1))
@@ -128,7 +128,7 @@ main() {
     
     # Validate machine-specific configurations
     for machine_dir in */; do
-        if [[ -f "${machine_dir}hyprland.conf" ]] && [[ "$machine_dir" != "common/" ]]; then
+        if [[ -f "${machine_dir}hyprland.conf" ]] && [[ "$machine_dir" != "hyprland/" ]]; then
             machine_name="${machine_dir%/}"
             if validate_config "${machine_dir}hyprland.conf" "$machine_name"; then
                 echo

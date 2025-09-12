@@ -26,14 +26,14 @@ HOSTNAME=$(hostname)
 print_status "Detected hostname: $HOSTNAME"
 
 # Check if we have a config for this hostname
-if [[ ! -f "$HOSTNAME/hyprland.conf" ]]; then
+if [[ ! -f "hyprland/$HOSTNAME/hyprland.conf" ]]; then
     print_error "No configuration found for hostname '$HOSTNAME'"
     print_status "Available configurations:"
-    ls -1 */hyprland.conf 2>/dev/null | sed 's|/hyprland.conf||' | sed 's/^/  - /'
+    ls -1 hyprland/*/hyprland.conf 2>/dev/null | sed 's|hyprland/||' | sed 's|/hyprland.conf||' | sed 's/^/  - /'
     echo
     print_status "You can either:"
-    print_status "  1. Create a new config: cp aya/hyprland.conf $HOSTNAME/hyprland.conf"
-    print_status "  2. Use existing config: ./install.sh [aya|rin]"
+    print_status "  1. Create a new config: cp hyprland/aya/hyprland.conf hyprland/$HOSTNAME/hyprland.conf"
+    print_status "  2. Use existing config: ./install.sh [aya|rin|utsuho]"
     exit 1
 fi
 
@@ -47,7 +47,7 @@ fi
 CONFIG_DIR="$HOME/.config"
 print_status "Creating configuration directories..."
 
-mkdir -p "$CONFIG_DIR/hypr/common"
+mkdir -p "$CONFIG_DIR/hypr"
 mkdir -p "$CONFIG_DIR/waybar"
 mkdir -p "$CONFIG_DIR/hypr"
 mkdir -p "$CONFIG_DIR/rofi"
@@ -58,11 +58,11 @@ mkdir -p "$CONFIG_DIR/kitty"
 print_status "Installing Hyprland configurations..."
 
 # Copy common config
-cp common/hyprland.conf "$CONFIG_DIR/hypr/common/"
+cp hyprland/hyprland.conf "$CONFIG_DIR/hypr/common.conf"
 print_status "✓ Installed common Hyprland configuration"
 
 # Copy machine-specific config as main config
-cp "$HOSTNAME/hyprland.conf" "$CONFIG_DIR/hypr/hyprland.conf"
+cp "hyprland/$HOSTNAME/hyprland.conf" "$CONFIG_DIR/hypr/hyprland.conf"
 print_status "✓ Installed $HOSTNAME-specific Hyprland configuration"
 
 # Copy waybar config

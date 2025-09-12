@@ -84,6 +84,9 @@ show_install_commands() {
             echo "sudo pacman -S networkmanager network-manager-applet"
             echo "sudo pacman -S wireplumber pavucontrol brightnessctl"
             echo ""
+            echo "# Fonts for Kitty:"
+            echo "sudo pacman -S ttf-jetbrains-mono-nerd"
+            echo ""
             echo "# AUR packages:"
             echo "yay -S hyprshot"
             echo ""
@@ -98,6 +101,7 @@ show_install_commands() {
             echo "sudo apt install rofi dunst kitty dolphin firefox-esr"
             echo "sudo apt install network-manager network-manager-gnome"
             echo "sudo apt install pavucontrol brightnessctl"
+            echo "sudo apt install fonts-jetbrains-mono"
             echo "sudo apt install blueman"
             ;;
         2) # Fedora
@@ -107,6 +111,7 @@ show_install_commands() {
             echo "sudo dnf install rofi dunst kitty dolphin firefox"
             echo "sudo dnf install NetworkManager-applet"
             echo "sudo dnf install pavucontrol brightnessctl blueman"
+            echo "sudo dnf install jetbrains-mono-fonts"
             ;;
         3) # NixOS
             print_status "You're using NixOS - use the configuration in ../nixos/ instead!"
@@ -116,6 +121,7 @@ show_install_commands() {
             echo "- hyprland, waybar, swww, hyprlock, rofi, dunst"
             echo "- kitty, dolphin, firefox"
             echo "- network-manager-applet, pavucontrol, brightnessctl"
+            echo "- jetbrains-mono-fonts (or similar monospace font)"
             ;;
     esac
 }
@@ -160,12 +166,13 @@ main() {
     echo "-------------------"
     check_command "blueman-applet" "Bluetooth manager" "false"
     check_command "wpctl" "Wireplumber control" "false"
+    check_command "fc-cache" "Font cache utility" "false"
     echo
     
     # Check for config files
     echo -e "${BLUE}Configuration Files${NC}"
     echo "-------------------"
-    if [[ -f "common/hyprland.conf" ]]; then
+    if [[ -f "hyprland/hyprland.conf" ]]; then
         print_success "✓ Common Hyprland configuration"
     else
         print_error "✗ Common configuration missing"
@@ -179,9 +186,16 @@ main() {
         errors=$((errors + 1))
     fi
     
+    if [[ -f "kitty/kitty.conf" ]]; then
+        print_success "✓ Kitty configuration"
+    else
+        print_error "✗ Kitty configuration missing"
+        errors=$((errors + 1))
+    fi
+    
     local machine_configs=0
-    for dir in */; do
-        if [[ -f "${dir}hyprland.conf" ]] && [[ "$dir" != "common/" ]]; then
+    for dir in hyprland/*/; do
+        if [[ -f "${dir}hyprland.conf" ]]; then
             machine_configs=$((machine_configs + 1))
         fi
     done

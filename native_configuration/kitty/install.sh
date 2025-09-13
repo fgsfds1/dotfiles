@@ -69,8 +69,8 @@ fi
 cp kitty.conf "$CONFIG_DIR/"
 print_status "✓ Installed kitty.conf"
 
-cp Darkside.conf "$CONFIG_DIR/"
-print_status "✓ Installed Darkside theme"
+cp colors.conf "$CONFIG_DIR/"
+print_status "✓ Installed kitty theme"
 
 # Install Input fonts if available
 if [[ -d "fonts" ]]; then

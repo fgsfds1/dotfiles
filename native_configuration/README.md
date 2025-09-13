@@ -2,6 +2,15 @@
 
 This directory contains native desktop configuration files extracted from the NixOS setup. These configurations provide a complete Hyprland-based desktop environment that can be used on any system with Hyprland installed.
 
+# TODO
+
+- [] network control
+- [] sound devices control
+- [] wallpaper and theme change script
+- [] theming for non-qt non-gtk apps (via color configs via matugen)
+- [] theming for qt and gtk (via matugen)
+- [] human clipboard
+
 ## 📁 Directory Structure
 
 ```

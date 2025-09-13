@@ -49,7 +49,6 @@ print_status "Creating configuration directories..."
 
 mkdir -p "$CONFIG_DIR/hypr"
 mkdir -p "$CONFIG_DIR/waybar"
-mkdir -p "$CONFIG_DIR/hypr"
 mkdir -p "$CONFIG_DIR/rofi"
 mkdir -p "$CONFIG_DIR/dunst"
 mkdir -p "$CONFIG_DIR/kitty"
@@ -58,11 +57,11 @@ mkdir -p "$CONFIG_DIR/kitty"
 print_status "Installing Hyprland configurations..."
 
 # Copy common config
-cp hyprland/hyprland.conf "$CONFIG_DIR/hypr/common.conf"
+cp hyprland/hyprland.conf "$CONFIG_DIR/hypr/hyprland.conf"
 print_status "✓ Installed common Hyprland configuration"
 
 # Copy machine-specific config as main config
-cp "hyprland/$HOSTNAME/hyprland.conf" "$CONFIG_DIR/hypr/hyprland.conf"
+cp "hyprland/$HOSTNAME/hyprland.conf" "$CONFIG_DIR/hypr/host.conf"
 print_status "✓ Installed $HOSTNAME-specific Hyprland configuration"
 
 # Copy waybar config
@@ -95,8 +94,8 @@ if [[ -f "kitty/kitty.conf" ]]; then
 fi
 
 # Copy kitty theme
-if [[ -f "kitty/Darkside.conf" ]]; then
-    cp kitty/Darkside.conf "$CONFIG_DIR/kitty/"
+if [[ -f "kitty/colors.conf" ]]; then
+    cp kitty/colors.conf "$CONFIG_DIR/kitty/"
     print_status "✓ Installed Kitty theme"
 fi
 
@@ -125,6 +124,7 @@ print_status "  - Hyprlock config: ~/.config/hypr/hyprlock.conf"
 print_status "  - Rofi config: ~/.config/rofi/config.rasi"
 print_status "  - Dunst config: ~/.config/dunst/dunstrc"
 print_status "  - Kitty config: ~/.config/kitty/kitty.conf"
+print_status "  - Kitty theme: ~/.config/kitty/colors.conf"
 print_status "  - Fonts: ~/.local/share/fonts/"
 print_status "  - Wallpapers: ~/Pictures/wallpapers/"
 echo

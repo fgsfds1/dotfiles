@@ -52,6 +52,10 @@ mkdir -p "$CONFIG_DIR/waybar"
 mkdir -p "$CONFIG_DIR/rofi"
 mkdir -p "$CONFIG_DIR/dunst"
 mkdir -p "$CONFIG_DIR/kitty"
+mkdir -p "$CONFIG_DIR/gtk-3.0"
+mkdir -p "$CONFIG_DIR/gtk-4.0"
+mkdir -p "$CONFIG_DIR/qt5ct"
+mkdir -p "$CONFIG_DIR/qt6ct"
 
 # Copy configurations
 print_status "Installing Hyprland configurations..."
@@ -60,6 +64,12 @@ print_status "Installing Hyprland configurations..."
 cp hyprland/hyprland.conf "$CONFIG_DIR/hypr/hyprland.conf"
 print_status "✓ Installed common Hyprland configuration"
 
+# Copy colors config if it exists
+if [[ -f "hyprland/colors.conf" ]]; then
+    cp hyprland/colors.conf "$CONFIG_DIR/hypr/"
+    print_status "✓ Installed Material Design color palette"
+fi
+
 # Copy machine-specific config as main config
 cp "hyprland/$HOSTNAME/hyprland.conf" "$CONFIG_DIR/hypr/host.conf"
 print_status "✓ Installed $HOSTNAME-specific Hyprland configuration"
@@ -67,7 +77,12 @@ print_status "✓ Installed $HOSTNAME-specific Hyprland configuration"
 # Copy waybar config
 cp waybar/config.json "$CONFIG_DIR/waybar/config"
 cp waybar/style.css "$CONFIG_DIR/waybar/style.css"
-print_status "✓ Installed Waybar configuration"
+if [[ -f "waybar/colors.css" ]]; then
+    cp waybar/colors.css "$CONFIG_DIR/waybar/"
+    print_status "✓ Installed Waybar configuration with Material Design colors"
+else
+    print_status "✓ Installed Waybar configuration"
+fi
 
 # Copy hyprlock config
 if [[ -f "hyprlock/hyprlock.conf" ]]; then
@@ -99,6 +114,20 @@ if [[ -f "kitty/colors.conf" ]]; then
     print_status "✓ Installed Kitty theme"
 fi
 
+# Copy GTK theme (works for both GTK 3.0 and 4.0)
+if [[ -d "gtk" ]]; then
+    cp gtk/* "$CONFIG_DIR/gtk-3.0/" 2>/dev/null || true
+    cp gtk/* "$CONFIG_DIR/gtk-4.0/" 2>/dev/null || true
+    print_status "✓ Installed GTK theme (3.0 and 4.0)"
+fi
+
+# Copy Qt theme (works for both Qt5 and Qt6)
+if [[ -d "qt" ]]; then
+    cp -r qt/* "$CONFIG_DIR/qt5ct/" 2>/dev/null || true
+    cp -r qt/* "$CONFIG_DIR/qt6ct/" 2>/dev/null || true
+    print_status "✓ Installed Qt theme (5 and 6)"
+fi
+
 # Copy fonts
 if [[ -d "fonts" ]]; then
     mkdir -p "$HOME/.local/share/fonts"
@@ -119,12 +148,16 @@ echo
 print_status "Configuration summary:"
 print_status "  - Hostname: $HOSTNAME"
 print_status "  - Hyprland config: ~/.config/hypr/hyprland.conf"
+print_status "  - Hyprland colors: ~/.config/hypr/colors.conf"
 print_status "  - Waybar config: ~/.config/waybar/config"
+print_status "  - Waybar colors: ~/.config/waybar/colors.css"
 print_status "  - Hyprlock config: ~/.config/hypr/hyprlock.conf"
 print_status "  - Rofi config: ~/.config/rofi/config.rasi"
 print_status "  - Dunst config: ~/.config/dunst/dunstrc"
 print_status "  - Kitty config: ~/.config/kitty/kitty.conf"
 print_status "  - Kitty theme: ~/.config/kitty/colors.conf"
+print_status "  - GTK themes: ~/.config/gtk-3.0/ and ~/.config/gtk-4.0/"
+print_status "  - Qt themes: ~/.config/qt5ct/ and ~/.config/qt6ct/"
 print_status "  - Fonts: ~/.local/share/fonts/"
 print_status "  - Wallpapers: ~/Pictures/wallpapers/"
 echo

@@ -84,11 +84,14 @@ show_install_commands() {
             echo "sudo pacman -S networkmanager network-manager-applet"
             echo "sudo pacman -S wireplumber pavucontrol brightnessctl"
             echo ""
+            echo "# Theming packages:"
+            echo "sudo pacman -S qt5ct qt6ct"
+            echo ""
             echo "# Fonts for Kitty:"
             echo "sudo pacman -S ttf-jetbrains-mono-nerd"
             echo ""
             echo "# AUR packages:"
-            echo "yay -S hyprshot"
+            echo "yay -S hyprshot matugen-bin"
             echo ""
             echo "# Optional:"
             echo "sudo pacman -S blueman"
@@ -101,8 +104,12 @@ show_install_commands() {
             echo "sudo apt install rofi dunst kitty dolphin firefox-esr"
             echo "sudo apt install network-manager network-manager-gnome"
             echo "sudo apt install pavucontrol brightnessctl"
+            echo "sudo apt install qt5ct qt6ct"
             echo "sudo apt install fonts-jetbrains-mono"
             echo "sudo apt install blueman"
+            echo ""
+            echo "# Note: matugen may need to be installed from source or cargo"
+            echo "# cargo install matugen"
             ;;
         2) # Fedora
             echo "# Enable COPR for Hyprland:"
@@ -111,17 +118,24 @@ show_install_commands() {
             echo "sudo dnf install rofi dunst kitty dolphin firefox"
             echo "sudo dnf install NetworkManager-applet"
             echo "sudo dnf install pavucontrol brightnessctl blueman"
+            echo "sudo dnf install qt5ct qt6ct"
             echo "sudo dnf install jetbrains-mono-fonts"
+            echo ""
+            echo "# Note: matugen may need to be installed from source or cargo"
+            echo "# cargo install matugen"
             ;;
         3) # NixOS
             print_status "You're using NixOS - use the configuration in ../nixos/ instead!"
+            print_status "...may god have mercy on your soul"
             ;;
         *) # Unknown
             echo "Please install the following packages using your system's package manager:"
             echo "- hyprland, waybar, swww, hyprlock, rofi, dunst"
             echo "- kitty, dolphin, firefox"
             echo "- network-manager-applet, pavucontrol, brightnessctl"
+            echo "- qt5ct, qt6ct (for Qt theming)"
             echo "- jetbrains-mono-fonts (or similar monospace font)"
+            echo "- matugen (Material Design color generator - may need cargo install)"
             ;;
     esac
 }
@@ -161,6 +175,14 @@ main() {
     check_command "hyprshot" "Screenshot tool" "false"
     echo
     
+    # Theming tools
+    echo -e "${BLUE}Theming Tools${NC}"
+    echo "-------------"
+    check_command "qt5ct" "Qt5 theme configuration" "false"
+    check_command "qt6ct" "Qt6 theme configuration" "false"
+    check_command "matugen" "Material Design color generator" "false"
+    echo
+    
     # Optional
     echo -e "${BLUE}Optional Components${NC}"
     echo "-------------------"
@@ -191,6 +213,19 @@ main() {
     else
         print_error "✗ Kitty configuration missing"
         errors=$((errors + 1))
+    fi
+    
+    # Check for theming configurations
+    if [[ -f "gtk/colors.css" ]]; then
+        print_success "✓ GTK theme configuration (3.0 & 4.0)"
+    else
+        print_warning "○ GTK theme configuration missing"
+    fi
+    
+    if [[ -f "qt/qt5ct.conf" ]]; then
+        print_success "✓ Qt theme configuration (5 & 6)"
+    else
+        print_warning "○ Qt theme configuration missing"
     fi
     
     local machine_configs=0

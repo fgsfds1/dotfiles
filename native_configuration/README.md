@@ -8,7 +8,8 @@ This directory contains native desktop configuration files extracted from the Ni
 - [] sound devices control
 - [] wallpaper and theme change script
 - [] theming for non-qt non-gtk apps (via color configs via matugen)
-- [] theming for qt and gtk (via matugen)
+- [x] theming for gtk (via matugen) - ✅ GTK 3.0/4.0 Material Design colors implemented
+- [x] theming for qt (via matugen) - ✅ Qt5/Qt6 Material Design colors implemented
 - [] human clipboard
 
 ## 📁 Directory Structure
@@ -19,6 +20,7 @@ native_configuration/
 ├── install.sh             # Installation script
 ├── hyprland/
 │   ├── hyprland.conf      # Shared Hyprland configuration
+│   ├── colors.conf        # Material Design 3 color palette (matugen)
 │   ├── aya/
 │   │   └── hyprland.conf  # ThinkPad E14 AMD (HiDPI) config
 │   ├── rin/
@@ -27,14 +29,22 @@ native_configuration/
 │       └── hyprland.conf  # Main desktop PC config
 ├── waybar/
 │   ├── config.json        # Waybar configuration
-│   └── style.css          # Waybar styling
+│   ├── style.css          # Waybar styling
+│   └── colors.css         # Material Design 3 colors for CSS
 ├── rofi/
 │   └── config.rasi        # Application launcher configuration
 ├── dunst/
 │   └── dunstrc            # Notification daemon configuration
 ├── kitty/
 │   ├── kitty.conf         # Terminal configuration
-│   └── Darkside.conf      # Dark color theme
+│   └── colors.conf        # Terminal color theme
+├── gtk/
+│   ├── colors.css         # GTK Material Design colors (3.0 & 4.0)
+│   └── gtk.css            # GTK theme configuration
+├── qt/
+│   ├── qt5ct.conf         # Qt theme configuration (5 & 6)
+│   └── colors/
+│       └── matugen.conf   # Qt Material Design colors
 ├── fonts/                 # Input font files (bundled)
 ├── wallpapers/            # Desktop wallpapers
 └── hyprlock/
@@ -77,9 +87,16 @@ native_configuration/
 
 #### Window Management
 - **Layout**: Dwindle with smart gaps
-- **Borders**: Cyan-to-green gradient for active windows
-- **Opacity**: Active windows 100%, inactive 90%
+- **Borders**: Material Design 3 color palette with dynamic gradients
+- **Opacity**: Active windows 100%, inactive 80%
 - **Animations**: Smooth bezier curves
+
+#### Material Design 3 Theming
+- **Color Generation**: Uses matugen to extract colors from wallpapers
+- **Dynamic Borders**: Application-specific color coding (dev tools, media, system apps)
+- **Workspace Colors**: Different color themes for different workspace types
+- **Status Bar**: Contextual colors for system status (battery, network, audio)
+- **Consistent Palette**: Shared colors between Hyprland and Waybar
 
 #### Keybindings
 | Shortcut | Action |
@@ -111,10 +128,11 @@ native_configuration/
 - **Features**: Progress bars, icons, action buttons, history
 
 #### Theming
-- **Qt**: Fusion style with qt5ct and custom dark color scheme
-- **GTK**: Adwaita dark theme
+- **GTK 3.0/4.0**: Material Design 3 colors generated from wallpaper
+- **Qt5/Qt6**: Material Design 3 colors via qt5ct/qt6ct with custom palette
 - **Icons**: Adwaita icon theme
 - **Wayland**: Native Qt and GTK support with proper scaling
+- **Consistent Colors**: All applications match Hyprland/Waybar color palette
 
 #### Environment
 - **Cursor size**: 64px
@@ -145,6 +163,7 @@ dunst
 
 # Qt/GTK theming
 qt5ct
+qt6ct
 
 # Terminal
 kitty
@@ -212,6 +231,38 @@ firefox
 
 - **Config**: Edit `waybar/config.json` for modules and layout
 - **Styling**: Edit `waybar/style.css` for appearance
+- **Colors**: Material Design 3 colors automatically applied via `colors.css`
+
+### Color Theme Customization
+
+#### Using Matugen (Recommended)
+1. **Generate new palette** from wallpaper:
+   ```bash
+   matugen image ~/Pictures/wallpapers/your_wallpaper.jpg --type css
+   matugen image ~/Pictures/wallpapers/your_wallpaper.jpg --type hyprland
+   ```
+
+2. **Copy generated colors**:
+   ```bash
+   cp ~/.config/matugen/colors.css waybar/
+   cp ~/.config/matugen/colors.conf hyprland/
+   cp ~/.config/matugen/gtk-3.0/colors.css gtk/
+   cp ~/.config/matugen/qt5ct/colors/matugen.conf qt/colors/
+   ```
+
+3. **Reload configurations**:
+   ```bash
+   hyprctl reload
+   killall waybar && waybar &
+   # GTK and Qt applications will pick up new colors on next launch
+   ```
+
+#### Manual Color Editing
+- **Hyprland colors**: Edit `hyprland/colors.conf` (rgba format)
+- **Waybar colors**: Edit `waybar/colors.css` (CSS format)
+- **GTK colors**: Edit `gtk/colors.css` (CSS format, works for GTK 3.0 & 4.0)
+- **Qt colors**: Edit `qt/colors/matugen.conf` (Qt palette format, works for Qt5 & Qt6)
+- **All files** use the same Material Design 3 color names for consistency
 
 ### Lock Screen Customization
 
@@ -227,15 +278,17 @@ If you prefer manual installation:
 mkdir -p ~/.config/hypr
 mkdir -p ~/.config/waybar
 
-# Copy common config
-cp hyprland/hyprland.conf ~/.config/hypr/common.conf
+# Copy Hyprland config
+cp hyprland/hyprland.conf ~/.config/hypr/hyprland.conf
+cp hyprland/colors.conf ~/.config/hypr/colors.conf
 
-# Copy machine-specific config (replace 'aya' with your machine)
-cp hyprland/aya/hyprland.conf ~/.config/hypr/hyprland.conf
+# Copy machine-specific config (replace 'utsuho' with your machine)
+cp hyprland/utsuho/hyprland.conf ~/.config/hypr/host.conf
 
 # Copy waybar config
 cp waybar/config.json ~/.config/waybar/config
 cp waybar/style.css ~/.config/waybar/style.css
+cp waybar/colors.css ~/.config/waybar/colors.css
 
 # Copy lock screen config
 cp hyprlock/hyprlock.conf ~/.config/hypr/
@@ -243,7 +296,19 @@ cp hyprlock/hyprlock.conf ~/.config/hypr/
 # Copy kitty config
 mkdir -p ~/.config/kitty
 cp kitty/kitty.conf ~/.config/kitty/
-cp kitty/Darkside.conf ~/.config/kitty/
+cp kitty/colors.conf ~/.config/kitty/
+
+# Copy GTK themes (works for both 3.0 and 4.0)
+mkdir -p ~/.config/gtk-3.0
+mkdir -p ~/.config/gtk-4.0
+cp gtk/* ~/.config/gtk-3.0/
+cp gtk/* ~/.config/gtk-4.0/
+
+# Copy Qt themes (works for both Qt5 and Qt6)
+mkdir -p ~/.config/qt5ct
+mkdir -p ~/.config/qt6ct
+cp -r qt/* ~/.config/qt5ct/
+cp -r qt/* ~/.config/qt6ct/
 
 # Install fonts
 mkdir -p ~/.local/share/fonts

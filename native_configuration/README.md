@@ -5,7 +5,7 @@ This directory contains native desktop configuration files extracted from the Ni
 # TODO
 
 - [] network control
-- [] sound devices control
+- [x] sound devices control - ✅ Using pwvucontrol (GTK4 PipeWire volume control)
 - [] wallpaper and theme change script
 - [] theming for non-qt non-gtk apps (via color configs via matugen)
 - [x] theming for gtk (via matugen) - ✅ GTK 3.0/4.0 Material Design colors implemented
@@ -146,6 +146,10 @@ native_configuration/
 # Core Hyprland
 hyprland
 
+# XDG Desktop Portal (required for file pickers, screen sharing, etc.)
+xdg-desktop-portal
+xdg-desktop-portal-hyprland
+
 # Status bar and system tray
 waybar
 
@@ -180,7 +184,7 @@ network-manager-applet
 
 # Audio control
 wireplumber
-pavucontrol
+pwvucontrol
 
 # Brightness control
 brightnessctl

@@ -52,6 +52,7 @@ mkdir -p "$CONFIG_DIR/waybar"
 mkdir -p "$CONFIG_DIR/rofi"
 mkdir -p "$CONFIG_DIR/dunst"
 mkdir -p "$CONFIG_DIR/kitty"
+mkdir -p "$CONFIG_DIR/matugen"
 mkdir -p "$CONFIG_DIR/gtk-3.0"
 mkdir -p "$CONFIG_DIR/gtk-4.0"
 mkdir -p "$CONFIG_DIR/qt5ct"
@@ -114,11 +115,25 @@ if [[ -f "kitty/colors.conf" ]]; then
     print_status "✓ Installed Kitty theme"
 fi
 
+# Copy matugen config
+if [[ -f "matugen/config.toml" ]]; then
+    cp -r matugen/* "$CONFIG_DIR/matugen/"
+    print_status "✓ Installed Matugen configuration"
+fi
+
 # Copy GTK theme (works for both GTK 3.0 and 4.0)
 if [[ -d "gtk" ]]; then
     cp gtk/* "$CONFIG_DIR/gtk-3.0/" 2>/dev/null || true
     cp gtk/* "$CONFIG_DIR/gtk-4.0/" 2>/dev/null || true
-    print_status "✓ Installed GTK theme (3.0 and 4.0)"
+    print_status "✓ Installed GTK theme and settings (3.0 and 4.0)"
+    
+    # Apply GTK theme using gsettings if available
+    if command -v gsettings >/dev/null 2>&1; then
+        gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark" 2>/dev/null || true
+        gsettings set org.gnome.desktop.interface color-scheme "prefer-dark" 2>/dev/null || true
+        gsettings set org.gnome.desktop.interface icon-theme "Adwaita" 2>/dev/null || true
+        print_status "✓ Applied GTK theme settings via gsettings"
+    fi
 fi
 
 # Copy Qt theme (works for both Qt5 and Qt6)
@@ -143,6 +158,10 @@ if [[ -d "wallpapers" ]]; then
     print_status "✓ Copied wallpapers to ~/Pictures/wallpapers/"
 fi
 
+# Run random wallpaper script to set the wallpaper and re-generate the colors
+print_status "Setting wallpaper and re-generating colors..."
+./random_wallpaper.sh
+
 print_status "Installation complete!"
 echo
 print_status "Configuration summary:"
@@ -156,6 +175,7 @@ print_status "  - Rofi config: ~/.config/rofi/config.rasi"
 print_status "  - Dunst config: ~/.config/dunst/dunstrc"
 print_status "  - Kitty config: ~/.config/kitty/kitty.conf"
 print_status "  - Kitty theme: ~/.config/kitty/colors.conf"
+print_status "  - Matugen config: ~/.config/matugen/config.toml"
 print_status "  - GTK themes: ~/.config/gtk-3.0/ and ~/.config/gtk-4.0/"
 print_status "  - Qt themes: ~/.config/qt5ct/ and ~/.config/qt6ct/"
 print_status "  - Fonts: ~/.local/share/fonts/"

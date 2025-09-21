@@ -84,17 +84,6 @@ window#waybar.empty #window {
     background: @error_container;
     color: @on_error_container;
 }
-
-#network.wifi {
-    background: @secondary_container;
-    color: @on_secondary_container;
-}
-
-#network.ethernet {
-    background: @tertiary_container;
-    color: @on_tertiary_container;
-}
-
 /* Audio status */
 #pulseaudio.muted {
     background: @outline_variant;
@@ -129,7 +118,6 @@ window#waybar.empty #window {
 
 /* Clock with special styling */
 #clock {
-    background: @surface_tint;
     color: @on_surface;
     font-weight: bold;
 }
@@ -147,7 +135,7 @@ window#waybar.empty #window {
 
 /* Tray with subtle background */
 #tray {
-    background: @surface_container_lowest;
+    color: @on_surface;
 }
 
 /* Blink animation for urgent items */

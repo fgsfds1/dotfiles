@@ -10,8 +10,10 @@
         "icon": true
     },
     
+    // on click, open pwvucontrol
     "pulseaudio": {
-        "format": "Vol: {volume:3}%"
+        "format": "Vol: {volume:3}%",
+        "on-click": "pwvucontrol"
     },
     
     "cpu": {
@@ -36,6 +38,14 @@
     
     "hyprland/language": {
         "format": "{short:>}"
+    },
+
+    "clock": {
+        "format": "{:%a %d/%m %H:%M}",
+        "tooltip-format": "<tt>{calendar}</tt>",
+        "calendar": {
+            "mode": "month"
+        }
     }
 }
 

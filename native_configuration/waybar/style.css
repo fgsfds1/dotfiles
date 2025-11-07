@@ -16,7 +16,7 @@ window#waybar {
     margin: 0px 5px;
 }
 
-#window, #bluetooth, #cpu, #memory, #pulseaudio, #network, #battery, #language, #tray, #clock {
+#window, #custom-temp, #bluetooth, #cpu, #memory, #pulseaudio, #network, #battery, #language, #tray, #clock {
     background: @surface_container_high;
     margin: 5px 5px;
     padding: 0px 5px;

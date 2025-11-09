@@ -12,6 +12,7 @@ my dotfiles backup and install script
 - [ ] remove multimachine stuff?
 - [ ] redo install script (install X)
 - [ ] test install script in VM
+- [ ] check-deps script to install script
 
 ## dirs
 

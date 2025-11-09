@@ -21,36 +21,21 @@ print_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-# Detect hostname to determine which config to use
-HOSTNAME=$(hostname)
-print_status "Detected hostname: $HOSTNAME"
-
-# Check if we have a config for this hostname
-if [[ ! -f "hyprland/$HOSTNAME/hyprland.conf" ]]; then
-    print_error "No configuration found for hostname '$HOSTNAME'"
-    print_status "Available configurations:"
-    ls -1 hyprland/*/hyprland.conf 2>/dev/null | sed 's|hyprland/||' | sed 's|/hyprland.conf||' | sed 's/^/  - /'
-    echo
-    print_status "You can either:"
-    print_status "  1. Create a new config: cp hyprland/aya/hyprland.conf hyprland/$HOSTNAME/hyprland.conf"
-    print_status "  2. Use existing config: ./install.sh [aya|rin|utsuho]"
-    exit 1
-fi
-
-# Allow override of hostname
+# Allow override of what to install
+# does nothing right now
+THING='everything'
 if [[ -n "$1" ]]; then
-    HOSTNAME="$1"
-    print_status "Using specified configuration: $HOSTNAME"
+    THING="$1"
+    print_status "Will only install $THING"
+else
+    print_status "Will install everything"
 fi
 
 # Create config directories
 CONFIG_DIR="$HOME/.config"
 print_status "Creating configuration directories..."
 
-mkdir -p "$CONFIG_DIR/hypr"
 mkdir -p "$CONFIG_DIR/waybar"
-mkdir -p "$CONFIG_DIR/rofi"
-mkdir -p "$CONFIG_DIR/dunst"
 mkdir -p "$CONFIG_DIR/kitty"
 mkdir -p "$CONFIG_DIR/matugen"
 mkdir -p "$CONFIG_DIR/gtk-3.0"
@@ -58,101 +43,93 @@ mkdir -p "$CONFIG_DIR/gtk-4.0"
 mkdir -p "$CONFIG_DIR/qt5ct"
 mkdir -p "$CONFIG_DIR/qt6ct"
 
-# Copy configurations
-print_status "Installing Hyprland configurations..."
-
-# Copy common config
-cp hyprland/hyprland.conf "$CONFIG_DIR/hypr/hyprland.conf"
-print_status "✓ Installed common Hyprland configuration"
-
-# Copy colors config if it exists
-if [[ -f "hyprland/colors.conf" ]]; then
+if [ $THING = 'everything' ] || [ $THING = 'hypr' ]; then
+    print_status "Creating hypr (Hyprland, hyprlock) dir..."
+    mkdir -p "$CONFIG_DIR/hypr"
+    print_status "Installing Hyprland configuration..."
+    cp hyprland/hyprland.conf "$CONFIG_DIR/hypr/"
+    print_status "Installing Hyprland colors..."
     cp hyprland/colors.conf "$CONFIG_DIR/hypr/"
-    print_status "✓ Installed Material Design color palette"
-fi
-
-# Copy machine-specific config as main config
-cp "hyprland/$HOSTNAME/hyprland.conf" "$CONFIG_DIR/hypr/host.conf"
-print_status "✓ Installed $HOSTNAME-specific Hyprland configuration"
-
-# Copy waybar config
-cp waybar/config.json "$CONFIG_DIR/waybar/config"
-cp waybar/style.css "$CONFIG_DIR/waybar/style.css"
-if [[ -f "waybar/colors.css" ]]; then
-    cp waybar/colors.css "$CONFIG_DIR/waybar/"
-    print_status "✓ Installed Waybar configuration with Material Design colors"
-else
-    print_status "✓ Installed Waybar configuration"
-fi
-
-# Copy hyprlock config
-if [[ -f "hyprlock/hyprlock.conf" ]]; then
+    print_status "Installing hyprlock config..."
     cp hyprlock/hyprlock.conf "$CONFIG_DIR/hypr/"
-    print_status "✓ Installed Hyprlock configuration"
 fi
 
-# Copy rofi config
-if [[ -f "rofi/config.rasi" ]]; then
+if [ $THING = 'everything' ] || [ $THING = 'waybar' ]; then
+    print_status "Creating waybar dir..."
+    mkdir -p "$CONFIG_DIR/waybar"
+    print_status "Installing waybar config..."
+    # renaming to config (without extension)
+    cp waybar/config.json "$CONFIG_DIR/waybar/config"
+    print_status "Installing waybar style guide..."
+    cp waybar/style.css "$CONFIG_DIR/waybar/"
+    print_status "Installing waybar colors..."
+    cp waybar/colors.css "$CONFIG_DIR/waybar/"
+fi
+
+if [ $THING = 'everything' ] || [ $THING = 'rofi' ]; then
+    print_status "Creating rofi dir..."
+    mkdir -p "$CONFIG_DIR/rofi"
+    print_status "Installing rofi config..."
     cp rofi/config.rasi "$CONFIG_DIR/rofi/"
-    print_status "✓ Installed Rofi configuration"
 fi
 
-# Copy dunst config
-if [[ -f "dunst/dunstrc" ]]; then
+if [ $THING = 'everything' ] || [ $THING = 'dunst' ]; then
+    print_status "Creating dunst dir..."
+    mkdir -p "$CONFIG_DIR/dunst"
+    print_status "Installing dunst config..."
     cp dunst/dunstrc "$CONFIG_DIR/dunst/"
-    print_status "✓ Installed Dunst configuration"
 fi
 
-# Copy kitty config
-if [[ -f "kitty/kitty.conf" ]]; then
+if [ $THING = 'everything' ] || [ $THING = 'kitty' ]; then
+    print_status "Creating kitty dir..."
+    mkdir -p "$CONFIG_DIR/kitty"
+    print_status "Installing kitty config..."
     cp kitty/kitty.conf "$CONFIG_DIR/kitty/"
-    print_status "✓ Installed Kitty configuration"
-fi
-
-# Copy kitty theme
-if [[ -f "kitty/colors.conf" ]]; then
+    print_status "Installing kitty colors..."
     cp kitty/colors.conf "$CONFIG_DIR/kitty/"
-    print_status "✓ Installed Kitty theme"
 fi
 
-# Copy matugen config
-if [[ -f "matugen/config.toml" ]]; then
+if [ $THING = 'everything' ] || [ $THING = 'matugen' ]; then
+    print_status "Creating matugen dir..."
+    mkdir -p "$CONFIG_DIR/matugen"
+    print_status "Installing matugen config..."
     cp -r matugen/* "$CONFIG_DIR/matugen/"
-    print_status "✓ Installed Matugen configuration"
 fi
 
-# Copy GTK theme (works for both GTK 3.0 and 4.0)
-if [[ -d "gtk" ]]; then
+if [ $THING = 'everything' ] || [ $THING = 'gtk' ]; then
+    print_status "Creating gtk dirs..."
+    mkdir -p "$CONFIG_DIR/gtk-3.0"
+    mkdir -p "$CONFIG_DIR/gtk-4.0"
+    print_status "Installing gtk config..."
     cp gtk/* "$CONFIG_DIR/gtk-3.0/" 2>/dev/null || true
     cp gtk/* "$CONFIG_DIR/gtk-4.0/" 2>/dev/null || true
-    print_status "✓ Installed GTK theme and settings (3.0 and 4.0)"
     
     # Apply GTK theme using gsettings if available
     if command -v gsettings >/dev/null 2>&1; then
+        print_status "Applying GTK theme settings via gsettings..."
         gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark" 2>/dev/null || true
         gsettings set org.gnome.desktop.interface color-scheme "prefer-dark" 2>/dev/null || true
         gsettings set org.gnome.desktop.interface icon-theme "Adwaita" 2>/dev/null || true
-        print_status "✓ Applied GTK theme settings via gsettings"
     fi
 fi
 
-# Copy Qt theme (works for both Qt5 and Qt6)
-if [[ -d "qt" ]]; then
+if [ $THING = 'everything' ] || [ $THING = 'qt' ]; then
+    print_status "Creating qt dirs..."
+    mkdir -p "$CONFIG_DIR/qt5ct"
+    mkdir -p "$CONFIG_DIR/qt6ct"
+    print_status "Installing qt config..."
     cp -r qt/* "$CONFIG_DIR/qt5ct/" 2>/dev/null || true
     cp -r qt/* "$CONFIG_DIR/qt6ct/" 2>/dev/null || true
-    print_status "✓ Installed Qt theme (5 and 6)"
 fi
 
-# Copy fonts
-if [[ -d "fonts" ]]; then
+if [ $THING = 'everything' ] || [ $THING = 'fonts' ]; then
     mkdir -p "$HOME/.local/share/fonts"
     cp fonts/* "$HOME/.local/share/fonts/" 2>/dev/null || true
     fc-cache -f 2>/dev/null || true
     print_status "✓ Installed fonts"
 fi
 
-# Create wallpapers directory and copy wallpapers if they exist
-if [[ -d "wallpapers" ]]; then
+if [ $THING = 'everything' ] || [ $THING = 'wallpapers' ]; then
     mkdir -p "$HOME/Pictures/wallpapers"
     cp wallpapers/* "$HOME/Pictures/wallpapers/" 2>/dev/null || true
     print_status "✓ Copied wallpapers to ~/Pictures/wallpapers/"
@@ -163,25 +140,3 @@ print_status "Setting wallpaper and re-generating colors..."
 ./random_wallpaper.sh
 
 print_status "Installation complete!"
-echo
-print_status "Configuration summary:"
-print_status "  - Hostname: $HOSTNAME"
-print_status "  - Hyprland config: ~/.config/hypr/hyprland.conf"
-print_status "  - Hyprland colors: ~/.config/hypr/colors.conf"
-print_status "  - Waybar config: ~/.config/waybar/config"
-print_status "  - Waybar colors: ~/.config/waybar/colors.css"
-print_status "  - Hyprlock config: ~/.config/hypr/hyprlock.conf"
-print_status "  - Rofi config: ~/.config/rofi/config.rasi"
-print_status "  - Dunst config: ~/.config/dunst/dunstrc"
-print_status "  - Kitty config: ~/.config/kitty/kitty.conf"
-print_status "  - Kitty theme: ~/.config/kitty/colors.conf"
-print_status "  - Matugen config: ~/.config/matugen/config.toml"
-print_status "  - GTK themes: ~/.config/gtk-3.0/ and ~/.config/gtk-4.0/"
-print_status "  - Qt themes: ~/.config/qt5ct/ and ~/.config/qt6ct/"
-print_status "  - Fonts: ~/.local/share/fonts/"
-print_status "  - Wallpapers: ~/Pictures/wallpapers/"
-echo
-print_status "To start Hyprland, run: Hyprland"
-print_warning "Make sure you have all required packages installed (hyprland, waybar, swww, etc.)"
-
-

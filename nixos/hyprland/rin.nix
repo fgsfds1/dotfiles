@@ -1,3 +1,0 @@
-{
-  monitor_scale = 1;
-}

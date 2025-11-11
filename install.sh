@@ -52,6 +52,8 @@ if [ $THING = 'everything' ] || [ $THING = 'hypr' ]; then
     cp hyprland/colors.conf "$CONFIG_DIR/hypr/"
     print_status "Installing hyprlock config..."
     cp hyprlock/hyprlock.conf "$CONFIG_DIR/hypr/"
+    print_status "Installing hypridle config..."
+    cp hypridle/hypridle.conf "$CONFIG_DIR/hypr/"
 fi
 
 if [ $THING = 'everything' ] || [ $THING = 'waybar' ]; then

@@ -47,13 +47,13 @@ if [ $THING = 'everything' ] || [ $THING = 'hypr' ]; then
     print_status "Creating hypr (Hyprland, hyprlock) dir..."
     mkdir -p "$CONFIG_DIR/hypr"
     print_status "Installing Hyprland configuration..."
-    cp hyprland/hyprland.conf "$CONFIG_DIR/hypr/"
+    cp hypr/hyprland.conf "$CONFIG_DIR/hypr/"
     print_status "Installing Hyprland colors..."
-    cp hyprland/colors.conf "$CONFIG_DIR/hypr/"
+    cp hypr/colors.conf "$CONFIG_DIR/hypr/"
     print_status "Installing hyprlock config..."
-    cp hyprlock/hyprlock.conf "$CONFIG_DIR/hypr/"
+    cp hypr/hyprlock.conf "$CONFIG_DIR/hypr/"
     print_status "Installing hypridle config..."
-    cp hypridle/hypridle.conf "$CONFIG_DIR/hypr/"
+    cp hypr/hypridle.conf "$CONFIG_DIR/hypr/"
 fi
 
 if [ $THING = 'everything' ] || [ $THING = 'waybar' ]; then

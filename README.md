@@ -5,6 +5,7 @@ my dotfiles backup and install script
 # TODO
 
 - [X] add todo items
+- [ ] filepicker shadows and border fix
 - [ ] fix theming (white dialog after apply)
 - [ ] retheme dunst?
 - [ ] fullscreen vrr @ low framerates is flickery, up min framerate?
@@ -19,15 +20,10 @@ my dotfiles backup and install script
 ```
 README.md              # This file
 install.sh             # Installation script
-hyprland/
+hypr/
 ├── hyprland.conf      # Shared Hyprland configuration
 ├── colors.conf        # Material Design 3 color palette (matugen)
-├── aya/               # Laptop machine (not used rn)
-│   └── hyprland.conf
-├── rin/               # QEMU VM machine (not used, for testing)
-│   └── hyprland.conf
-└── utsuho/            # Main desktop PC additional config
-    └── hyprland.conf
+└── hyprlock.conf      # Screen lock configuration
 waybar/
 ├── config.json        # Waybar configuration
 ├── style.css          # Waybar styling
@@ -39,8 +35,6 @@ dunst/
 kitty/
 ├── kitty.conf         # Terminal configuration
 └── colors.conf        # Terminal color theme
-hyprlock/
-└── hyprlock.conf      # Screen lock configuration
 gtk/
 ├── colors.css         # GTK Material Design colors (3.0 & 4.0)
 └── gtk.css            # GTK theme configuration
@@ -58,10 +52,8 @@ wallpapers/            # Some stolen/generated wallpapers
 # Auto-detect hostname and install
 ./install.sh
 
-# Or specify machine configuration
-./install.sh aya     # For ThinkPad with HiDPI
-./install.sh rin     # For standard DPI setup  
-./install.sh utsuho  # For main desktop PC
+# Install specific component
+./install.sh [hypr,waybar,rofi,dunst,kitty,matugen,gtk,qt,fonts,wallpapers]
 ```
 
 ## deets
@@ -120,6 +112,9 @@ swww
 
 # Screen locking
 hyprlock
+
+# turn off screens and lock system after a while
+hypridle
 
 # Application launcher
 rofi-wayland

@@ -137,8 +137,4 @@ if [ $THING = 'everything' ] || [ $THING = 'wallpapers' ]; then
     print_status "✓ Copied wallpapers to ~/Pictures/wallpapers/"
 fi
 
-# Run random wallpaper script to set the wallpaper and re-generate the colors
-print_status "Setting wallpaper and re-generating colors..."
-./random_wallpaper.sh
-
 print_status "Installation complete!"

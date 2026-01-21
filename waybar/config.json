@@ -23,7 +23,7 @@
     "custom/temp": {
 	// "exec": "sensors 2&>1 | grep 'AMD TSI Addr 98h' | cut -d ' ' -f 6 | tail -c +2",
 	// "exec": "sensors 2>/dev/null | grep 'AMD TSI Addr 98h' | cut -d ' ' -f 6 | tail -c +2",
-	"exec": "echo \"CPU: $(sensors 2>/dev/null | grep 'AMD TSI Addr 98h' | cut -d' ' -f6 | tail -c+2 | head -c+2) GPU: $(sensors 2>/dev/null | grep -A13 'amdgpu' | grep 'edge' | cut -d' ' -f10 | tail -c+2 | head -c+2)\"",
+	"exec": "echo \"CPU: $(sensors 2>/dev/null | grep 'AMD TSI Addr 98h' | cut -d' ' -f6 | tail -c+2 | head -c+2) GPU: $(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits)\"",
 	"interval": 1,
 	"format": "{text}"
     },

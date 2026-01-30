@@ -106,11 +106,6 @@ export EDITOR='nvim'
 # alias sudoedit='doas rnano'
 # alias emacs="emacsclient -c -a 'emacs'"
 
-alias dcs='docker container start'
-alias dcsp='docker container stop'
-alias dcr='docker container restart'
-alias dlf='docker logs --follow'
-
 alias vim='nvim'
 
 # tmux alias
@@ -124,7 +119,6 @@ ta() {
 
 export PATH="/home/lw/.local/bin:$PATH"
 export PATH="/home/lw/.cargo/bin:$PATH"
-export PATH="/opt/rocm/bin:$PATH"
 
 source <(fzf --zsh)
 source <(opencode completion)

@@ -4,26 +4,47 @@ Personal Hyprland setup managed with [chezmoi](https://www.chezmoi.io/).
 
 ## Quick Start
 
+### Linux (Arch)
 ```bash
-# Install chezmoi if needed
 pacman -S chezmoi
+./bootstrap.sh
+```
 
-# Setup
-chezmoi init --apply
+### macOS
+```bash
+brew install chezmoi
+./bootstrap.sh
+```
 
-# Update configs
+## Cross-Platform Support
+
+- Same dotfiles repo works on Linux and macOS
+- Platform-specific configs are automatically excluded via `.chezmoiignore.tmpl`
+- Shell configuration uses templates for OS-specific paths
+- Linux gets full desktop setup (window manager, status bar, etc.)
+- macOS gets minimal setup (terminal, shell, git)
+
+## Update configs
+```bash
 chezmoi update
 ```
 
 ## Components
 
+#### Cross-Platform
+- **Shell**: .zshrc (with OS-specific templates)
+- **Terminal**: Kitty
+
+#### Linux Only
 - **Hyprland**: Compositor, lock screen, idle
 - **Waybar**: Status bar with colors
 - **Rofi**: Application launcher
-- **Kitty**: Terminal emulator
 - **Dunst**: Notifications
 - **GTK/Qt**: Theme configuration
 - **Matugen**: Color schemes
+
+#### macOS Only
+- Native macOS tools (no window manager, status bar, etc.)
 
 ## Usage
 
@@ -42,10 +63,16 @@ chezmoi apply
 
 ### Scripts
 
-- `bootstrap.sh`: Quick setup
-- `install_dependencies.sh`: Arch dependencies
+- `bootstrap.sh`: Quick setup (Linux & macOS)
+- `install_dependencies.sh`: Linux dependencies only
 - `random_wallpaper.sh`: Wallpapers
 - `test-notifications.sh`: Test notifications
+
+### Template System
+
+- `.chezmoiignore.tmpl`: Platform-specific exclusions (Linux/MacOS configs)
+- `dot_zshrc.tmpl`: Cross-platform shell config with OS-specific paths
+- When adding new configs, ask: "Linux, macOS, or both?"
 
 ## Assets
 

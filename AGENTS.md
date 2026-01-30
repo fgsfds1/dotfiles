@@ -1,10 +1,27 @@
 # AGENTS.md
 
-## Chezmoi Config Management
-Source: `~/.local/share/chezmoi/chezmoi/` → Destination: `~/.config/`
-Files prefixed with `dot_` are copied to their destination location.
-- `.chezmoi.toml.tmpl`: Template generating `~/.config/chezmoi/chezmoi.toml` on init
-- Edit source files directly, then `chezmoi apply` to sync
+## Cross-Platform Architecture
+
+Source: `~/.local/share/chezmoi/chezmoi/` → Destination: `~`
+
+### Template System
+- `.chezmoiignore.tmpl`: Platform filtering (excludes Linux/MacOS configs)
+- `dot_zshrc.tmpl`: Cross-platform shell config with OS-specific paths
+- Uses `{{ if eq .chezmoi.os "darwin" }}` for OS detection
+
+### Platform-Specific Components
+- **Linux**: Hyprland, Waybar, Rofi, Dunst, GTK, Qt, Matugen
+- **macOS**: Native tools only (no window manager, status bar, etc.)
+
+### Config Programs
+- **hypr/**: Compositor (hyprland.conf, hyprlock.conf, hypridle.conf, colors.conf)
+- **waybar/**: Status bar (config.json, style.css, colors.css)
+- **rofi/**: Launcher (config.rasi)
+- **kitty/**: Terminal (kitty.conf, colors.conf)
+- **dunst/**: Notifications (dunstrc)
+- **gtk/**: Theme (gtk.css, colors.css, settings.ini)
+- **qt/**: Qt theme (qt5ct.conf, colors/)
+- **matugen/**: Color generator (config.toml, generates theme colors)
 
 ## Config Programs
 - **hypr/**: Compositor (hyprland.conf, hyprlock.conf, hypridle.conf, colors.conf)
@@ -25,8 +42,8 @@ Post-apply hook reloads running programs:
 - dunst: `dunstctl reload`
 
 ## Scripts
-- `bootstrap.sh`: Quick setup
-- `install_dependencies.sh`: Arch dependencies
+- `bootstrap.sh`: Unified setup (auto-detects OS, uses pacman or Homebrew)
+- `install_dependencies.sh`: Linux dependencies only
 - `random_wallpaper.sh`: Wallpapers
 - `test-notifications.sh`: Test notifications
 
@@ -34,6 +51,8 @@ Post-apply hook reloads running programs:
 - `chezmoi cd` → navigate to source directory
 - `git add . && git commit` → commit changes (be succinct)
 - `chezmoi git push` → push to remote
+
+**Template workflow**: When adding new configs, ask "Linux, macOS, or both?" to determine if it needs `.tmpl` extension and platform filtering.
 
 ## Common Operations
 - `chezmoi apply --dry-run` → preview changes

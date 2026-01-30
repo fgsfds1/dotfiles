@@ -1,32 +1,81 @@
 # Dotfiles
 
-My personal Linux configuration managed with [chezmoi](https://www.chezmoi.io/).
+Personal Hyprland setup managed with [chezmoi](https://www.chezmoi.io/).
 
 ## Quick Start
 
 ```bash
-chezmoi init --apply
-```
+# Install chezmoi if needed
+pacman -S chezmoi
 
-This will install all configurations to your home directory.
+# Setup
+chezmoi init --apply
+
+# Update configs
+chezmoi update
+```
 
 ## Components
 
-- **Hyprland**: Wayland compositor
-- **Waybar**: Status bar
+- **Hyprland**: Compositor, lock screen, idle
+- **Waybar**: Status bar with colors
 - **Rofi**: Application launcher
 - **Kitty**: Terminal emulator
 - **Dunst**: Notifications
-- **GTK/Qt**: Theming
+- **GTK/Qt**: Theme configuration
+- **Matugen**: Color schemes
 
-## Documentation
+## Usage
 
-- [Full Installation Guide](docs/INSTALL.md)
-- [Dependency Management](docs/DEPENDENCY_SCRIPTS.md)
+### Edit Configs
 
-## Scripts
+```bash
+# Edit source state
+chezmoi edit ~/.config/hypr/hyprland.conf
 
-- `scripts/bootstrap.sh`: One-command setup for chezmoi
-- `scripts/install_dependencies.sh`: Install dependencies (Arch Linux)
-- `scripts/random_wallpaper.sh`: Random wallpaper selector
-- `scripts/test-notifications.sh`: Test notification system
+# Preview changes
+chezmoi diff
+
+# Apply changes
+chezmoi apply
+```
+
+### Scripts
+
+- `bootstrap.sh`: Quick setup
+- `install_dependencies.sh`: Arch dependencies
+- `random_wallpaper.sh`: Wallpapers
+- `test-notifications.sh`: Test notifications
+
+## Assets
+
+- **fonts/**: Input MonoNarrow terminal fonts
+- **wallpapers/**: Personal wallpapers for swww
+
+## Structure
+
+```
+chezmoi/              # chezmoi source state
+scripts/              # Utility scripts
+assets/               # Fonts and wallpapers
+docs/                 # Documentation
+```
+
+## Git Workflow
+
+```bash
+# Navigate to chezmoi source
+chezmoi cd
+
+# Edit configs
+nano chezmoi/dot_hypr/hyprland.conf
+
+# Preview and apply
+chezmoi diff
+chezmoi apply
+
+# Commit changes
+git add .
+git commit -m "Update config"
+git push
+```

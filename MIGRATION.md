@@ -157,7 +157,7 @@ chezmoi add ~/.config/your-app/config
 
 - **bootstrap.sh**: One-command setup script
 - **chezmoi update**: Easy update command
-- **docs/INSTALL.md**: Comprehensive installation guide
+- **README.md**: Comprehensive installation guide
 - **scripts/README.md**: Script usage documentation
 - **assets/README.md**: Asset management guide
 

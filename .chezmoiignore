@@ -1,0 +1,46 @@
+# Chezmoi managed files and directories
+# Don't track these files in chezmoi
+
+# OS and backup files
+*.swp
+*.swo
+*~
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# Personal files and directories
+secrets/
+*.secret
+.env
+*.pem
+*.key
+*.crt
+credentials.json
+
+# Cache and build directories
+.cache/
+build/
+dist/
+
+# Git files
+.git/
+.gitignore
+
+# IDE and editor directories
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Config files that should be managed manually
+*.local/share/chezmoi/working-tree/*

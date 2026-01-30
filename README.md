@@ -33,15 +33,15 @@ chezmoi update
 
 #### Cross-Platform
 - **Shell**: .zshrc (with OS-specific templates)
-- **Terminal**: Kitty
 
 #### Linux Only
-- **Hyprland**: Compositor, lock screen, idle
-- **Waybar**: Status bar with colors
-- **Rofi**: Application launcher
-- **Dunst**: Notifications
-- **GTK/Qt**: Theme configuration
-- **Matugen**: Color schemes
+- **Hyprland**: `~/.config/hypr/hyprland.conf`
+- **Waybar**: `~/.config/waybar/config.json`
+- **Rofi**: `~/.config/rofi/config.rasi`
+- **Dunst**: `~/.config/dunst/dunstrc`
+- **GTK/Qt**: `~/.config/gtk/`, `~/.config/qt5ct/`
+- **Kitty**: `~/.config/kitty/kitty.conf`
+- **Matugen**: `~/.config/matugen/`
 
 #### macOS Only
 - Native macOS tools (no window manager, status bar, etc.)
@@ -83,9 +83,21 @@ chezmoi apply
 
 ```
 chezmoi/              # chezmoi source state
-scripts/              # Utility scripts
-assets/               # Fonts and wallpapers
-docs/                 # Documentation
+├── .chezmoiignore.tmpl
+├── .chezmoi.toml.tmpl
+├── dot_config/       # All configs go here
+│   ├── hypr/
+│   ├── rofi/
+│   ├── waybar/
+│   ├── dunst/
+│   ├── gtk/
+│   ├── qt/
+│   ├── kitty/
+│   └── matugen/
+├── images/           # Images and wallpapers
+├── assets/           # Fonts (kept for now)
+├── scripts/          # Utility scripts
+└── docs/             # Documentation
 ```
 
 ## Git Workflow
@@ -95,7 +107,7 @@ docs/                 # Documentation
 chezmoi cd
 
 # Edit configs
-nano chezmoi/dot_hypr/hyprland.conf
+nano chezmoi/dot_config/hypr/hyprland.conf
 
 # Preview and apply
 chezmoi diff

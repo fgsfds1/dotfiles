@@ -1,34 +1,30 @@
-# README files
+# Non-config files (should never be installed)
 README.md
 MIGRATION.md
+AGENTS.md
+bootstrap.sh
+scripts/
+docs/
+
+# Assets directory
+images/
+assets/fonts/
 
 # Linux-specific configs
 {{ if ne .chezmoi.os "linux" }}
-.chezmoi/.hypr/
-.chezmoi/.waybar/
-.chezmoi/.dunst/
-.chezmoi/.rofi/
+dot_config/hypr/
+dot_config/waybar/
+dot_config/dunst/
+dot_config/rofi/
 {{ end }}
 
 # macOS-specific configs
 {{ if ne .chezmoi.os "darwin" }}
-.chezmoi/.gtk/
-.chezmoi/.qt/
-.chezmoi/.matugen/
+dot_config/gtk/
+dot_config/qt/
+dot_config/kitty/
+dot_config/matugen/
 {{ end }}
-
-# Linux-specific scripts
-{{ if ne .chezmoi.os "linux" }}
-scripts/install_dependencies.sh
-{{ end }}
-
-# Assets directory (wallpapers, fonts - platform specific)
-{{ if ne .chezmoi.os "linux" }}
-assets/
-{{ end }}
-
-# Documentation directories (platform-specific)
-docs/
 
 # Git-related
 .git/

@@ -10,16 +10,16 @@ docs/
 images/
 assets/fonts/
 
-# Linux-specific configs
-{{ if ne .chezmoi.os "linux" }}
+# Linux-specific ignore list
+{{ if eq .chezmoi.os "linux" }}
+{{ end }}
+
+# macOS-specific ignore list
+{{ if eq .chezmoi.os "darwin" }}
 dot_config/hypr/
 dot_config/waybar/
 dot_config/dunst/
 dot_config/rofi/
-{{ end }}
-
-# macOS-specific configs
-{{ if ne .chezmoi.os "darwin" }}
 dot_config/gtk/
 dot_config/qt/
 dot_config/kitty/

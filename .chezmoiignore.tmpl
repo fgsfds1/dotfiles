@@ -1,0 +1,42 @@
+# README files
+README.md
+MIGRATION.md
+
+# Linux-specific configs
+{{ if ne .chezmoi.os "linux" }}
+.chezmoi/.hypr/
+.chezmoi/.waybar/
+.chezmoi/.dunst/
+.chezmoi/.rofi/
+{{ end }}
+
+# macOS-specific configs
+{{ if ne .chezmoi.os "darwin" }}
+.chezmoi/.gtk/
+.chezmoi/.qt/
+.chezmoi/.matugen/
+{{ end }}
+
+# Linux-specific scripts
+{{ if ne .chezmoi.os "linux" }}
+scripts/install_dependencies.sh
+{{ end }}
+
+# Assets directory (wallpapers, fonts - platform specific)
+{{ if ne .chezmoi.os "linux" }}
+assets/
+{{ end }}
+
+# Documentation directories (platform-specific)
+docs/
+
+# Git-related
+.git/
+.gitignore
+.gitattributes
+
+# Backup and temporary files
+**/*.swp
+**/*.swo
+**/*~
+**/.DS_Store

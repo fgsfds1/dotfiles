@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Bootstrap script for chezmoi dotfiles
-# Installs chezmoi if needed and applies dotfiles
+# Supports: Arch Linux, macOS (Darwin), and other Unix-like systems
 
 set -e
 
@@ -27,6 +27,17 @@ print_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
+# Detect OS
+detect_os() {
+    case "$(uname -s)" in
+        Linux*)  echo "linux" ;;
+        Darwin*) echo "darwin" ;;
+        *)       echo "unknown" ;;
+    esac
+}
+
+OS=$(detect_os)
+
 # Check if chezmoi is installed
 check_chzmoi() {
     if command -v chezmoi &> /dev/null; then
@@ -43,22 +54,37 @@ check_chzmoi() {
 install_chzmoi() {
     print_info "Installing chezmoi..."
 
-    if command -v pacman &> /dev/null; then
-        # Arch Linux
-        print_status "Installing chezmoi via pacman..."
-        sudo pacman -S --needed chezmoi
-    elif command -v brew &> /dev/null; then
-        # macOS
-        print_status "Installing chezmoi via Homebrew..."
-        brew install chezmoi
-    elif command -v curl &> /dev/null; then
-        # Generic Linux/macOS
-        print_status "Installing chezmoi via curl..."
-        sh -c "$(curl -fsLS get.chezmoi.io)"
-    else
-        print_error "Cannot install chezmoi: curl not found"
-        return 1
-    fi
+    case "$OS" in
+        linux)
+            if command -v pacman &> /dev/null; then
+                # Arch Linux
+                print_status "Installing chezmoi via pacman..."
+                sudo pacman -S --needed chezmoi
+            elif command -v brew &> /dev/null; then
+                # Generic Linux with Homebrew
+                print_status "Installing chezmoi via Homebrew..."
+                brew install chezmoi
+            else
+                print_error "Cannot install chezmoi: no package manager found"
+                return 1
+            fi
+            ;;
+        darwin)
+            if command -v brew &> /dev/null; then
+                # macOS with Homebrew
+                print_status "Installing chezmoi via Homebrew..."
+                brew install chezmoi
+            else
+                print_error "Cannot install chezmoi: Homebrew not found"
+                print_info "Please install Homebrew first: /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+                return 1
+            fi
+            ;;
+        unknown)
+            print_error "Unsupported operating system: $OS"
+            return 1
+            ;;
+    esac
 
     print_status "chezmoi installation complete"
 }

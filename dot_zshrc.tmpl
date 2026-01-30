@@ -1,0 +1,45 @@
+# Oh-my-zsh configuration
+export ZSH="$HOME/.oh-my-zsh"
+export DISABLE_AUTO_UPDATE=true
+ZSH_THEME="rgm"
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+export EDITOR='nvim'
+
+# Cross-platform aliases
+alias vim='nvim'
+
+# tmux alias (works on both)
+ta() {
+    if tmux ls &>/dev/null; then
+        tmux a
+    else
+        tmux
+    fi
+}
+
+# Cross-platform PATH
+{{- if eq .chezmoi.os "linux" }}
+export PATH="/home/lw/.local/bin:$PATH"
+export PATH="/home/lw/.cargo/bin:$PATH"
+{{- end }}
+
+# macOS-specific additions
+{{- if eq .chezmoi.os "darwin" }}
+# LM Studio CLI
+export PATH="$PATH:/Users/lw/.lmstudio/bin"
+
+# Homebrew Python
+alias python3="/opt/homebrew/bin/python3.10"
+alias python="/opt/homebrew/bin/python3.10"
+
+# iTerm2 integration
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+{{- end }}
+
+# Cross-platform tool integrations (fzf and OpenCode work on both)
+source <(fzf --zsh)
+source <(opencode completion)

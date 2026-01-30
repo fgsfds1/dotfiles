@@ -26,5 +26,7 @@ This will install all configurations to your home directory.
 
 ## Scripts
 
-- `scripts/install.sh`: Full setup
-- `scripts/verify_dependencies.sh`: Check dependencies
+- `scripts/bootstrap.sh`: One-command setup for chezmoi
+- `scripts/install_dependencies.sh`: Install dependencies (Arch Linux)
+- `scripts/random_wallpaper.sh`: Random wallpaper selector
+- `scripts/test-notifications.sh`: Test notification system

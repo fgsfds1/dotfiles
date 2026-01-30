@@ -26,17 +26,20 @@ This directory contains detailed documentation for the dotfiles repository.
 chezmoi init --apply
 
 # Update later
-./scripts/update.sh
+chezmoi update
 
-# Check dependencies
-./scripts/verify_dependencies.sh
+# Install dependencies
+./scripts/install_dependencies.sh
 
-# Quick check
-./scripts/check-deps.sh
+# Test notifications
+./scripts/test-notifications.sh
+
+# Random wallpaper
+./scripts/random_wallpaper.sh
 ```
 
 ## Getting Help
 
 1. Check [INSTALL.md](INSTALL.md) for detailed instructions
-2. Review [DEPENDENCY_SCRIPTS.md](DEPENDENCY_SCRIPTS.md) for script usage
+2. Review [scripts/README.md](../scripts/README.md) for script usage
 3. See [chezmoi Documentation](https://www.chezmoi.io/)

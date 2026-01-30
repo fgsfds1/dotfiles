@@ -48,11 +48,9 @@ chezmoi init --apply https://github.com/yourusername/dotfiles
 
 ### Scripts
 
-- **scripts/install.sh**: Full installation with dependencies
-- **scripts/install_dependencies.sh**: Package dependency installation
-- **scripts/verify_dependencies.sh**: Dependency verification
-- **scripts/check-deps.sh**: Quick dependency check
-- **scripts/random_wallpaper.sh**: Random wallpaper selection
+- **scripts/bootstrap.sh**: One-command setup for chezmoi
+- **scripts/install_dependencies.sh**: Package dependency installation (Arch Linux and derivatives)
+- **scripts/random_wallpaper.sh**: Random wallpaper selector and setter
 - **scripts/test-notifications.sh**: Test notification system
 
 ## Installation
@@ -96,20 +94,7 @@ cd ~/projects/dotfiles/scripts
 ./install_dependencies.sh
 ```
 
-### Verify Dependencies
-
-```bash
-cd ~/projects/dotfiles/scripts
-./verify_dependencies.sh
-```
-
-### Quick Check
-
-```bash
-./check-deps.sh
-```
-
-## Modifying Configurations
+### Modifying Configurations
 
 ### Edit Source State
 

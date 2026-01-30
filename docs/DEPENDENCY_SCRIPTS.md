@@ -34,26 +34,6 @@ Installs all required packages for the Hyprland dotfiles.
 ./install_dependencies.sh --help
 ```
 
-### verify_dependencies.sh
-Verifies which dependencies are installed and which ones are missing.
-
-**Usage:**
-```bash
-./verify_dependencies.sh
-```
-
-**Features:**
-- Checks status of all required packages
-- Identifies installed and missing packages
-- Verifies command availability
-- Provides clear visual feedback with color coding
-- Skips optional packages that may not be needed
-
-**Output:**
-- Green checkmarks (✓) for installed packages
-- Red crosses (✗) for missing packages with clear identification
-- Color-coded output for easy reading
-
 ## Installation
 
 1. Clone the repository:
@@ -70,8 +50,6 @@ chmod +x install_dependencies.sh
 
 3. Run the verification script to check status:
 ```bash
-chmod +x verify_dependencies.sh
-./verify_dependencies.sh
 ```
 
 ## Manual Installation
@@ -133,4 +111,4 @@ sudo pacman -S --needed base-devel
 
 - `DEPENDENCIES_ARCH.md` - Detailed package list and installation instructions
 - `INSTALL_REFACTORING.md` - Installation script refactoring documentation
-- `install.sh` - Main dotfiles installation script
+- `bootstrap.sh` - One-command setup for chezmoi

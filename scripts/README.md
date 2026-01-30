@@ -4,22 +4,22 @@ Utility scripts for dotfiles management and system maintenance.
 
 ## Installation Scripts
 
-### install.sh
-Full installation script for dotfiles and dependencies.
+### bootstrap.sh
+One-command setup script for chezmoi dotfiles.
 
 **Usage:**
 ```bash
-./install.sh
+./bootstrap.sh
 ```
 
 **Features:**
-- Auto-detects system and hostname
-- Installs all dotfile components
-- Handles dependency management
-- Creates necessary directories
+- Auto-installs chezmoi if not present
+- Initializes chezmoi with current repository
+- Applies all configurations
+- Sets up git remote and commits initial state
 
 ### install_dependencies.sh
-Installs all required packages for the Hyprland environment.
+Installs all required packages for the Hyprland environment (Arch Linux and derivatives).
 
 **Usage:**
 ```bash
@@ -33,44 +33,6 @@ Installs all required packages for the Hyprland environment.
 - Handles core Hyprland stack
 - Installs applications and system utilities
 - Sets up theming packages
-
-### verify_dependencies.sh
-Verifies which dependencies are installed.
-
-**Usage:**
-```bash
-./verify_dependencies.sh
-```
-
-**Features:**
-- Checks status of all required packages
-- Color-coded output (✓ installed, ✗ missing)
-- Identifies installed and missing packages
-
-### check-deps.sh
-Quick dependency check for manual review.
-
-**Usage:**
-```bash
-./check-deps.sh
-```
-
-**Features:**
-- Fast status check
-- Simple output format
-
-### update.sh
-Updates dotfiles from the repository.
-
-**Usage:**
-```bash
-./update.sh
-```
-
-**Features:**
-- Pulls latest git changes
-- Applies chezmoi updates
-- Automatic backup before changes
 
 ## Utility Scripts
 
@@ -88,6 +50,8 @@ Random wallpaper selector and setter.
 - Sets wallpaper using swww
 - Logs selection to history
 
+**TODO**: Update hardcoded paths for generic use
+
 ### test-notifications.sh
 Test notification daemon configuration.
 
@@ -103,7 +67,8 @@ Test notification daemon configuration.
 
 ## Script Organization
 
-- **Install scripts**: Manage dotfiles installation and dependencies
+- **Setup scripts**: Manage initial installation and chezmoi setup
+- **Dependency scripts**: Package installation for specific systems
 - **Utility scripts**: Perform specific tasks or maintenance
 - **All scripts**: Executable with proper shebangs (`#!/usr/bin/env bash`)
 

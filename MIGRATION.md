@@ -21,11 +21,7 @@ dotfiles/
 ├── matugen/
 ├── fonts/
 ├── wallpapers/
-├── install.sh
 ├── install_dependencies.sh
-├── verify_dependencies.sh
-├── check-deps.sh
-├── random_wallpaper.sh
 ├── test-notifications.sh
 ├── README.md
 ├── DEPENDENCIES_ARCH.md
@@ -59,7 +55,7 @@ dotfiles/
 - **Scripts**: All moved to `scripts/` directory
 - **Assets**: Moved to `assets/` directory
 - **Documentation**: Consolidated into `docs/` directory
-- **New files**: Added `bootstrap.sh`, `scripts/update.sh`
+- **New files**: Added `bootstrap.sh`
 
 ### 3. Git History
 
@@ -89,7 +85,7 @@ chezmoi init --apply
 ### Easy Updates
 ```bash
 # Pull and apply latest changes
-./scripts/update.sh
+chezmoi update
 
 # Or
 chezmoi update
@@ -127,7 +123,7 @@ chezmoi diff
 chezmoi apply
 
 # Update from repo
-./scripts/update.sh
+chezmoi update
 ```
 
 ### Modifying Configs
@@ -160,7 +156,7 @@ chezmoi add ~/.config/your-app/config
 ## Files to Keep in Mind
 
 - **bootstrap.sh**: One-command setup script
-- **scripts/update.sh**: Easy update command
+- **chezmoi update**: Easy update command
 - **docs/INSTALL.md**: Comprehensive installation guide
 - **scripts/README.md**: Script usage documentation
 - **assets/README.md**: Asset management guide

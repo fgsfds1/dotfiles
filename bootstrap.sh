@@ -78,14 +78,17 @@ check_initialized() {
 # Initialize chezmoi with current directory
 initialize_chzmoi() {
     print_info "Initializing chezmoi..."
-    chezmoi init
+
+    # Add current directory as chezmoi source
+    chezmoi init --source "$(pwd)"
 
     # Add all current files
     print_info "Adding files to chezmoi..."
     chezmoi add -a .
 
-    # Commit initial state
+    # Commit initial state in chezmoi working tree
     cd "$(chezmoi data | jq -r '.chezmoi.workingTree')"
+    git branch -M main
     git add -A
     git commit -m "Initial chezmoi setup"
 

@@ -31,7 +31,8 @@ cd "$(chezmoi data | jq -r '.chezmoi.workingTree')"
 
 # Pull latest changes from git
 print_info "Pulling latest changes from git..."
-git pull origin main
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+git pull origin "$CURRENT_BRANCH" || git pull origin main
 
 # Apply chezmoi changes
 print_info "Applying chezmoi changes..."

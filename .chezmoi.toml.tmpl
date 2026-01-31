@@ -2,12 +2,16 @@
 {{- $uuid := promptStringOnce . "singbox.uuid" "Sing-box VLESS UUID" -}}
 {{- $publicKey := promptStringOnce . "singbox.public_key" "Sing-box Reality public key" -}}
 {{- $shortId := promptStringOnce . "singbox.short_id" "Sing-box Reality short ID" -}}
+{{- $openrouterKey := promptStringOnce . "opencode.openrouter_api_key" "OpenRouter API key" -}}
 
 [data.singbox]
 server = {{ $server | quote }}
 uuid = {{ $uuid | quote }}
 public_key = {{ $publicKey | quote }}
 short_id = {{ $shortId | quote }}
+
+[data.opencode]
+openrouter_api_key = {{ $openrouterKey | quote }}
 
 [chezmoi]
 # chezmoi configuration

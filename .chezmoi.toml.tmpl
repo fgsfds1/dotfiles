@@ -1,3 +1,14 @@
+{{- $server := promptStringOnce . "singbox.server" "Sing-box proxy server IP" -}}
+{{- $uuid := promptStringOnce . "singbox.uuid" "Sing-box VLESS UUID" -}}
+{{- $publicKey := promptStringOnce . "singbox.public_key" "Sing-box Reality public key" -}}
+{{- $shortId := promptStringOnce . "singbox.short_id" "Sing-box Reality short ID" -}}
+
+[data.singbox]
+server = {{ $server | quote }}
+uuid = {{ $uuid | quote }}
+public_key = {{ $publicKey | quote }}
+short_id = {{ $shortId | quote }}
+
 [chezmoi]
 # chezmoi configuration
 

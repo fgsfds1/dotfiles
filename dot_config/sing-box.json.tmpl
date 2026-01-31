@@ -49,6 +49,12 @@
     "auto_detect_interface": true,
     "rule_set": [
       {
+        "tag": "cloudflare-ips",
+        "type": "local",
+        "format": "source",
+        "path": "{{ .chezmoi.homeDir }}/.config/sing-box-cloudflare-ip-ruleset.json"
+      },
+      {
         "tag": "proxy-domains",
         "type": "local",
         "format": "source",
@@ -71,6 +77,11 @@
       },
       {
         "rule_set": [ "proxy-domains" ],
+        "action": "route",
+        "outbound": "proxy-out"
+      },
+      {
+        "rule_set": [ "cloudflare-ips" ],
         "action": "route",
         "outbound": "proxy-out"
       },

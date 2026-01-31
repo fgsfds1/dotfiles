@@ -1,0 +1,11 @@
+{{- /* Fetch Cloudflare IP ranges from official API */ -}}
+{{- $ipv4 := output "curl" "-s" "https://www.cloudflare.com/ips-v4" | trim | splitList "\n" -}}
+{{- $ipv6 := output "curl" "-s" "https://www.cloudflare.com/ips-v6" | trim | splitList "\n" -}}
+{
+  "version": 1,
+  "rules": [
+    {
+      "ip_cidr": {{ concat $ipv4 $ipv6 | toJson }}
+    }
+  ]
+}

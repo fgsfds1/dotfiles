@@ -54,6 +54,12 @@ Post-apply hook reloads running programs:
 
 **Template workflow**: When adding new configs, ask "Linux, macOS, or both?" to determine if it needs `.tmpl` extension and platform filtering.
 
+## Secrets Management
+- `.chezmoi.toml.tmpl`: Defines secret prompts via `promptStringOnce`
+- Secrets prompted during `chezmoi init`, stored in local config (not in git)
+- Templates use `{{ .data.variablename }}` to reference secrets
+- Example: sing-box uses `{{ .singbox.server }}`, `{{ .singbox.uuid }}`, etc.
+
 ## Common Operations
 - `chezmoi apply --dry-run` → preview changes
 - `chezmoi status` → check managed files

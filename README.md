@@ -74,6 +74,13 @@ chezmoi apply
 - `dot_zshrc.tmpl`: Cross-platform shell config with OS-specific paths
 - When adding new configs, ask: "Linux, macOS, or both?"
 
+### Secrets Management
+
+- `.chezmoi.toml.tmpl`: Prompts for secrets during `chezmoi init` (e.g., sing-box credentials)
+- Secrets stored locally in `~/.config/chezmoi/chezmoi.toml` (gitignored)
+- Templates reference secrets via `{{ .variablename }}`
+- Safe for public repos - only prompts are committed, not actual secrets
+
 ## Assets
 
 - **fonts/**: Input MonoNarrow terminal fonts

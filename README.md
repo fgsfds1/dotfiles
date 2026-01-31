@@ -1,196 +1,174 @@
 # Dotfiles
 
-Personal Hyprland setup managed with [chezmoi](https://www.chezmoi.io/).
+Cross-platform dotfiles managed with [chezmoi](https://www.chezmoi.io/).  
+Linux (Arch-based) gets full Hyprland desktop, macOS gets minimal terminal setup.
 
 ## Quick Start
 
 ### Linux (Arch)
 ```bash
 pacman -S chezmoi
-./bootstrap.sh
+chezmoi init https://github.com/YOUR_USERNAME/dotfiles.git
+chezmoi diff
+chezmoi apply
 ```
 
 ### macOS
 ```bash
 brew install chezmoi
-./bootstrap.sh
+chezmoi init https://github.com/YOUR_USERNAME/dotfiles.git
+chezmoi diff
+chezmoi apply
 ```
 
-## Cross-Platform Support
+During `chezmoi init`, you'll be prompted for secrets (sing-box VPN credentials, etc.).
 
-- Same dotfiles repo works on Linux and macOS
-- Platform-specific configs are automatically excluded via `.chezmoiignore.tmpl`
-- Shell configuration uses templates for OS-specific paths
-- Linux gets full desktop setup (window manager, status bar, etc.)
-- macOS gets minimal setup (terminal, shell, git)
+## What's Included
 
-## Update configs
+### Cross-Platform
+- **Shell**: ZSH with OS-specific templates
+- **Sing-box**: VPN configuration with encrypted secrets
+
+### Linux Only
+- **Hyprland**: Wayland compositor with idle/lock support
+- **Waybar**: Status bar with system info
+- **Rofi**: Application launcher
+- **Dunst**: Notification daemon
+- **Kitty**: Terminal emulator
+- **Matugen**: Automatic color scheme generator
+- **GTK/Qt**: Themed applications
+
+### macOS Only
+- Minimal terminal setup (no window manager or status bar)
+
+## Common Tasks
+
+### Update Configs
 ```bash
-chezmoi update
+chezmoi update          # Pull from git and apply
 ```
-
-## Components
-
-#### Cross-Platform
-- **Shell**: .zshrc (with OS-specific templates)
-
-#### Linux Only
-- **Hyprland**: `~/.config/hypr/hyprland.conf`
-- **Waybar**: `~/.config/waybar/config.json`
-- **Rofi**: `~/.config/rofi/config.rasi`
-- **Dunst**: `~/.config/dunst/dunstrc`
-- **GTK/Qt**: `~/.config/gtk/`, `~/.config/qt5ct/`
-- **Kitty**: `~/.config/kitty/kitty.conf`
-- **Matugen**: `~/.config/matugen/`
-
-#### macOS Only
-- Native macOS tools (no window manager, status bar, etc.)
-
-## Usage
 
 ### Edit Configs
-
 ```bash
-# Edit source state
 chezmoi edit ~/.config/hypr/hyprland.conf
+chezmoi diff            # Preview changes
+chezmoi apply           # Apply changes
+```
 
-# Preview changes
+### Add New Config
+```bash
+chezmoi add ~/.config/app/config
+# Or with templating:
+chezmoi add --template ~/.config/app/config
+```
+
+### Test a Branch
+```bash
+chezmoi init --branch feature-name
 chezmoi diff
-
-# Apply changes
 chezmoi apply
 ```
 
-### Scripts
+## How It Works
 
-- `bootstrap.sh`: Quick setup (Linux & macOS)
-- `install_dependencies.sh`: Linux dependencies only
-- `random_wallpaper.sh`: Wallpapers
-- `test-notifications.sh`: Test notifications
+### Architecture
+- **Source**: `~/.local/share/chezmoi/` (git repository with templates)
+- **Destination**: `~` (your actual home directory)
+- Templates are rendered with platform-specific values during `chezmoi apply`
 
-### Template System
-
-- `.chezmoiignore.tmpl`: Platform-specific exclusions (Linux/MacOS configs)
-- `dot_zshrc.tmpl`: Cross-platform shell config with OS-specific paths
-- When adding new configs, ask: "Linux, macOS, or both?"
+### File Naming
+- `dot_config/` → `~/.config/`
+- `*.tmpl` files are processed as Go templates
+- `.chezmoiignore.tmpl` controls which files install on which OS
 
 ### Secrets Management
+- Secrets are prompted during `chezmoi init`
+- Stored locally in `~/.config/chezmoi/chezmoi.toml` (gitignored)
+- Templates reference secrets like `{{ .singbox.server }}`
+- Only prompts are committed to git, never actual secrets
 
-- `.chezmoi.toml.tmpl`: Prompts for secrets during `chezmoi init` (e.g., sing-box credentials)
-- Secrets stored locally in `~/.config/chezmoi/chezmoi.toml` (gitignored)
-- Templates reference secrets via `{{ .variablename }}`
-- Safe for public repos - only prompts are committed, not actual secrets
+### Platform Detection
+Templates use `{{ if eq .chezmoi.os "darwin" }}` for macOS-specific sections and `"linux"` for Linux.
 
-## Assets
+## Configuration Details
 
-- **fonts/**: Input MonoNarrow terminal fonts
-- **wallpapers/**: Personal wallpapers for swww
+See individual README files in each config directory:
+- `dot_config/hypr/README.md` - Hyprland compositor
+- `dot_config/waybar/README.md` - Status bar
+- `dot_config/rofi/README.md` - Launcher
+- `dot_config/dunst/README.md` - Notifications
+- `dot_config/kitty/README.md` - Terminal
+- `dot_config/matugen/README.md` - Color scheme generator
+- `dot_config/gtk/README.md` - GTK theme
+- `dot_config/qt/README.md` - Qt theme
 
-## Structure
+## Scripts
 
-```
-chezmoi/              # chezmoi source state
-├── .chezmoiignore.tmpl
-├── .chezmoi.toml.tmpl
-├── dot_config/       # All configs go here
-│   ├── hypr/
-│   ├── rofi/
-│   ├── waybar/
-│   ├── dunst/
-│   ├── gtk/
-│   ├── qt/
-│   ├── kitty/
-│   └── matugen/
-├── images/           # Images and wallpapers
-├── assets/           # Fonts (kept for now)
-├── scripts/          # Utility scripts
-└── docs/             # Documentation
-```
+- `bootstrap.sh` - Initial setup (auto-detects OS)
+- `random_wallpaper.sh` - Set random wallpaper
+- `test-notifications.sh` - Test notification system
 
-## Git Workflow
+## Chezmoi Commands Reference
 
 ```bash
-# Navigate to chezmoi source
-chezmoi cd
+# Status
+chezmoi status          # Show changes
+chezmoi managed         # List managed files
+chezmoi diff            # Preview changes
 
-# Edit configs
-nano chezmoi/dot_config/hypr/hyprland.conf
+# Apply
+chezmoi apply           # Apply all changes
+chezmoi apply --dry-run # Preview without applying
 
-# Preview and apply
-chezmoi diff
-chezmoi apply
+# Edit
+chezmoi edit <file>     # Edit source file
+chezmoi cd              # Navigate to source directory
 
-# Commit changes
-git add .
-git commit -m "Update config"
-git push
-```
-
-## Chezmoi Commands
-
-```bash
-# Setup
-chezmoi init --apply
-chezmoi init --branch feature/my-config
-
-# Track files
-chezmoi add ~/.config/your-app/config
-chezmoi re-add ~/.config/your-app/config  # Re-adds file if it was removed or changed
-
-# Edit configs
-chezmoi edit ~/.config/hypr/hyprland.conf  # Opens source file in editor
-chezmoi edit --apply ~/.config/hypr/hyprland.conf  # Edit and apply automatically
-chezmoi edit --watch ~/.config/hypr/hyprland.conf  # Auto-apply on save
-
-# Preview changes
-chezmoi diff
-chezmoi diff ~/.config/hypr/hyprland.conf
-
-# Apply changes
-chezmoi apply  # Apply all pending changes
-chezmoi apply --dry-run  # Show what would change without applying
-chezmoi apply --force  # Apply even if manual changes exist in destination
-
-# Update
-chezmoi update  # Pull latest from repo and apply changes
-chezmoi git pull && chezmoi diff  # Manual git pull then check changes
-
-# Navigate
-chezmoi cd
-
-# Git commands
+# Git operations
 chezmoi git status
-chezmoi git commit -m "Update"
+chezmoi git commit -m "message"
 chezmoi git push
 
-# Status
-chezmoi status
-chezmoi managed
+# Branch management
+chezmoi init --branch <name>
 
 # Remove files
-chezmoi forget ~/.config/your-app/config  # Stop managing, keep in home
-chezmoi remove ~/.config/your-app/config  # Stop managing, delete from home
-
-# Advanced
-chezmoi init --one-shot  # Setup and then remove chezmoi traces (for containers)
-chezmoi merge ~/.config/hypr/hyprland.conf  # Merge changes between current, source, and computed state
-chezmoi re-add ~/.config/your-app/config  # Re-adds file if it was removed or changed
+chezmoi forget <file>   # Stop managing
+chezmoi remove <file>   # Stop managing and delete
 ```
 
-## Workflow
+## Post-Apply Hooks
 
-**Source → Destination:**
-- **Source**: `~/.local/share/chezmoi/` (managed by chezmoi)
-- **Destination**: `~` (your actual home directory)
-- **Mapping**: `dot_*` files are copied to their destination locations
+When you run `chezmoi apply`, the following programs are automatically reloaded if running:
+- Hyprland → `hyprctl reload`
+- Waybar → `killall -SIGUSR1 waybar`
+- Rofi → `killall rofi`
+- Dunst → `dunstctl reload`
 
-**When you edit configs:**
-1. Edit files in `~/.local/share/chezmoi/`
-2. Run `chezmoi diff` to preview changes
-3. Run `chezmoi apply` to apply changes to `~`
-4. Commit in chezmoi's git repo
+## Contributing
 
-**Branches:**
-- Use `chezmoi init --branch` to checkout specific branch
-- Use `chezmoi cd && git checkout` to switch branches
-- Use `chezmoi update` to pull from current branch
+For development guidelines, see `AGENTS.md`.
+
+## Repository Structure
+
+```
+.
+├── .chezmoi.toml.tmpl       # Prompts for secrets on init
+├── .chezmoiignore.tmpl      # Platform-specific file filtering
+├── dot_config/              # All configuration files
+│   ├── hypr/                # Hyprland compositor (Linux)
+│   ├── waybar/              # Status bar (Linux)
+│   ├── rofi/                # Launcher (Linux)
+│   ├── dunst/               # Notifications (Linux)
+│   ├── kitty/               # Terminal (Linux)
+│   ├── matugen/             # Color generator (Linux)
+│   ├── gtk/                 # GTK theme (Linux)
+│   ├── qt/                  # Qt theme (Linux)
+│   └── sing-box*.json*      # VPN config (cross-platform)
+├── dot_zshrc.tmpl           # Shell config with templates
+├── scripts/                 # Utility scripts
+├── images/                  # Wallpapers
+├── assets/                  # Fonts
+├── AGENTS.md                # AI agent instructions
+└── README.md                # This file
+```

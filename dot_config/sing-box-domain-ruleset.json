@@ -111,7 +111,9 @@
         "yesim.app",
         "youtu.be",
         "youtube.com",
-        "ytimg.com"
+        "ytimg.com",
+	"anydesk.com",
+	"anydesk.my.site.com"
       ]
     }
   ]

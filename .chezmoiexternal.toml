@@ -1,0 +1,4 @@
+[".config/nvim"]
+type="git-repo"
+url="https://github.com/fgsfds1/kickstart-modular.nvim.git"
+refreshPeriod="24h"

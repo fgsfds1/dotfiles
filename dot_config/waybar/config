@@ -1,0 +1,65 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 48,
+    
+    "modules-left": ["hyprland/workspaces", "hyprland/window"],
+    "modules-right": ["cpu", "memory", "custom/temp", "pulseaudio", "network", "battery", "custom/pkg", "hyprland/language", "tray", "clock"],
+    
+    "hyprland/window": {
+        "icon": true
+    },
+    
+    "pulseaudio": {
+        "format": "Vol: {volume:3}%",
+        "on-click": "pwvucontrol"
+    },
+    
+    "cpu": {
+        "interval": 1,
+        "format": "CPU: {usage:3}% @ {avg_frequency:>3.1f}"
+    },
+
+    "custom/temp": {
+	// "exec": "sensors 2&>1 | grep 'AMD TSI Addr 98h' | cut -d ' ' -f 6 | tail -c +2",
+	// "exec": "sensors 2>/dev/null | grep 'AMD TSI Addr 98h' | cut -d ' ' -f 6 | tail -c +2",
+	"exec": "echo \"CPU: $(sensors 2>/dev/null | grep 'AMD TSI Addr 98h' | cut -d' ' -f6 | tail -c+2 | head -c+2) GPU: $(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits)\"",
+	"interval": 1,
+	"format": "{text}"
+    },
+
+    "custom/pkg": {
+	"exec": "yay -Qu 2>/dev/null | wc -l",
+	"interval": 600,
+	"format": "{text} upd pkg"
+    },
+    
+    "memory": {
+        "interval": 1,
+        "format": "Mem: {used:>4.1f} Swp: {swapUsed:>4.1f}"
+    },
+    
+    "network": {
+        "interval": 5,
+        "format-ethernet": "Eth: {ipaddr}",
+        "format-wifi": "WiFi: {essid} @ {signaldBm:2}"
+    },
+    
+    "battery": {
+        "format": "Batt: {time:>} @ {capacity:3}%"
+    },
+    
+    "hyprland/language": {
+        "format": "{short:>}"
+    },
+
+    "clock": {
+        "format": "{:%a %d/%m %H:%M}",
+        "tooltip-format": "<tt>{calendar}</tt>",
+        "calendar": {
+            "mode": "month"
+        }
+    }
+}
+
+

@@ -105,7 +105,6 @@ See individual README files in each config directory:
 ## Scripts
 
 - `bootstrap.sh` - Initial setup (auto-detects OS)
-- `random_wallpaper.sh` - Set random wallpaper
 - `test-notifications.sh` - Test notification system
 
 ## Chezmoi Commands Reference

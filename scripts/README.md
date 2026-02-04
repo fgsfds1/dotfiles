@@ -36,22 +36,6 @@ Installs all required packages for the Hyprland environment (Arch Linux and deri
 
 ## Utility Scripts
 
-### random_wallpaper.sh
-Random wallpaper selector and setter.
-
-**Usage:**
-```bash
-./random_wallpaper.sh
-```
-
-**Features:**
-- Scans ~/Pictures/wallpapers
-- Randomly selects wallpaper
-- Sets wallpaper using swww
-- Logs selection to history
-
-**TODO**: Update hardcoded paths for generic use
-
 ### test-notifications.sh
 Test notification daemon configuration.
 

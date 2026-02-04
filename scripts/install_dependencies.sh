@@ -97,7 +97,7 @@ main() {
     print_status "Installing additional packages..."
     install_package "rofi"
     install_package "dunst"
-    install_package "swww"
+    install_package "awwww"
 
     print_status "All dependencies installed successfully!"
 }

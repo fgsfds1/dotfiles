@@ -47,3 +47,14 @@ TODO.md
 
 # Config files that should be managed manually
 *.local/share/chezmoi/working-tree/*
+
+# macOS-specific Linux configs
+hypr/
+hyprshell/
+waybar/
+dunst/
+rofi/
+gtk/
+qt/
+kitty/
+matugen/

@@ -1,56 +1,83 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 48,
+    "height": 32,
     
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
-    "modules-right": ["cpu", "memory", "custom/temp", "pulseaudio", "network", "battery", "custom/pkg", "hyprland/language", "tray", "clock"],
+    "modules-center": ["custom/media"],
+    "modules-right": ["tray", "custom/cpu-load", "custom/mem-load", "custom/tempcpu", "custom/tempgpu", "pulseaudio", "hyprland/language", "clock"],
     
     "hyprland/window": {
         "icon": true
     },
     
     "pulseaudio": {
-        "format": "Vol: {volume:3}%",
-        "on-click": "pwvucontrol"
+        "on-click": "pwvucontrol",
+	"format": "{icon}",
+	"format-icons": [ "󰕿","󰖀","󰕾","󱄡" ]
     },
-    
+
+    "custom/media": {
+        "exec": "playerctl -a metadata --format '{\"text\": \"{{markup_escape(artist)}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}}\", \"class\": \"{{status}}\", \"alt\": \"{{status}}\"}' -F 2>/dev/null",
+        "return-type": "json",
+        "format": "{icon} {text}",
+        "format-icons": {
+            "Playing": "",
+            "Paused": "",
+            "Stopped": ""
+        },
+        "max-length": 50,
+        "on-click": "playerctl play-pause",
+        "on-click-right": "playerctl next",
+        "on-click-middle": "playerctl previous",
+        "tooltip": true
+    },
+
     "cpu": {
-        "interval": 1,
-        "format": "CPU: {usage:3}% @ {avg_frequency:>3.1f}"
-    },
-
-    "custom/temp": {
-	// "exec": "sensors 2&>1 | grep 'AMD TSI Addr 98h' | cut -d ' ' -f 6 | tail -c +2",
-	// "exec": "sensors 2>/dev/null | grep 'AMD TSI Addr 98h' | cut -d ' ' -f 6 | tail -c +2",
-	"exec": "echo \"CPU: $(sensors 2>/dev/null | grep 'AMD TSI Addr 98h' | cut -d' ' -f6 | tail -c+2 | head -c+2) GPU: $(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits)\"",
-	"interval": 1,
-	"format": "{text}"
-    },
-
-    "custom/pkg": {
-	"exec": "yay -Qu 2>/dev/null | wc -l",
-	"interval": 600,
-	"format": "{text} upd pkg"
+    	"format": "{usage}",
+	"interval": 1
     },
     
+    "custom/cpu-load": {
+        "exec": "/home/lw/.config/waybar/cpu-load.sh",
+        "interval": 1,
+        "format": "{}",
+        "return-type": "json"
+    },
+
+    "custom/mem-load": {
+        "exec": "/home/lw/.config/waybar/mem-load.sh",
+        "interval": 1,
+        "format": "{}",
+        "return-type": "json"
+    },
+
+    "custom/tempcpu": {
+	"exec": "/home/lw/.config/waybar/temp-cpu.sh",
+	"interval": 1,
+	"format": "{}",
+	"return-type": "json"
+    },
+
+    "custom/tempgpu": {
+	"exec": "/home/lw/.config/waybar/temp-gpu.sh",
+	"interval": 1,
+	"format": "{}",
+	"return-type": "json"
+    },
+
     "memory": {
         "interval": 1,
         "format": "Mem: {used:>4.1f} Swp: {swapUsed:>4.1f}"
     },
     
-    "network": {
-        "interval": 5,
-        "format-ethernet": "Eth: {ipaddr}",
-        "format-wifi": "WiFi: {essid} @ {signaldBm:2}"
-    },
-    
-    "battery": {
-        "format": "Batt: {time:>} @ {capacity:3}%"
-    },
-    
     "hyprland/language": {
         "format": "{short:>}"
+    },
+
+    "tray": {
+    	"icon-size": 16,
+	"spacing": 20
     },
 
     "clock": {

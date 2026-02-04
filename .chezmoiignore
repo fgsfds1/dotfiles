@@ -36,6 +36,9 @@ dist/
 .git/
 .gitignore
 
+# Other project files
+TODO.md
+
 # IDE and editor directories
 .vscode/
 .idea/

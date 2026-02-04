@@ -1,40 +1,81 @@
-@import "./colors.css";
+@import "./mocha.css";
 
 * {
     border: none;
     border-radius: 5px;
-    font-family: Input;
-    color: @on_surface;
+    font: 16px "JetBrainsMono Nerd Font";
+    font-weight: bold;
+    color: @text;
+    background: rgba(0,0,0,0);
 }
 
 window#waybar {
-    border-radius: 0px;
-    background: @surface_container_low;
 }
 
 .modules-left, .modules-center, .modules-right {
     margin: 0px 5px;
 }
 
-#window, #custom-temp, #custom-pkg, #bluetooth, #cpu, #memory, #pulseaudio, #network, #battery, #language, #tray, #clock {
-    background: @surface_container_high;
-    margin: 5px 5px;
+#custom-cpu-load.verycritical,
+#custom-mem-load.verycritical,
+#custom-tempcpu.verycritical,
+#custom-tempgpu.verycritical {
+    color: @fuckinbadred;
+}
+
+#custom-cpu-load.critical,
+#custom-mem-load.critical,
+#custom-tempcpu.critical,
+#custom-tempgpu.critical {
+    color: @red;
+}
+
+#custom-cpu-load.veryhigh,
+#custom-mem-load.veryhigh,
+#custom-tempcpu.veryhigh,
+#custom-tempgpu.veryhigh {
+    color: @maroon;
+}
+ 
+#custom-cpu-load.high,
+#custom-mem-load.high,
+#custom-tempcpu.high,
+#custom-tempgpu.high {
+    color: @peach;
+}
+
+#custom-cpu-load.verywarm,
+#custom-mem-load.verywarm,
+#custom-tempcpu.verywarm,
+#custom-tempgpu.verywarm {
+    color: @yellow;
+}
+
+#custom-cpu-load.warm,
+#custom-mem-load.warm,
+#custom-tempcpu.warm,
+#custom-tempgpu.warm {
+    color: @flamingo;
+}
+
+#custom-cpu-load.normal,
+#custom-mem-load.normal,
+#custom-tempcpu.normal,
+#custom-tempgpu.normal {
+    color: @text;
+}
+
+#window, #custom-cpu-load, #custom-mem-load, #custom-tempgpu, #custom-tempcpu, #pulseaudio, #language, #tray, #clock {
+    margin: 0px 5px;
     padding: 0px 5px;
 }
 
 #workspaces {
-    background: @surface_container_high;
-    margin: 5px 5px;
+    margin: 0px 5px 0px 0px;
     padding: 0px;
 }
 
-#workspaces button.active {
-    background: @primary_container;
-    color: @on_primary_container;
-}
-
 window#waybar.empty #window {
-    color: @outline;
     padding: 0px 0px;
 }
 
@@ -44,104 +85,23 @@ window#waybar.empty #window {
 
 /* Workspace button styling */
 #workspaces button {
-    padding: 4px 8px;
-    margin: 2px;
+    padding: 0px 10px;
+    margin: 0px;
     border-radius: 3px;
-    background: @surface_container;
-    color: @on_surface_variant;
-    transition: all 0.3s ease;
 }
 
 #workspaces button:hover {
-    background: @surface_container_highest;
-    color: @on_surface;
+    background: @overlay0;
+}
+
+#workspaces button.active {
+    background: @surface0;
 }
 
 #workspaces button.urgent {
-    background: @error_container;
-    color: @on_error_container;
-    animation: blink 1s linear infinite alternate;
+    color: @red;
 }
 
-/* System status colors */
-#battery.critical {
-    background: @error_container;
-    color: @on_error_container;
-}
-
-#battery.warning {
-    background: @tertiary_container;
-    color: @on_tertiary_container;
-}
-
-#battery.good {
-    background: @surface_container_high;
-    color: @on_surface;
-}
-
-/* Network status */
-#network.disconnected {
-    background: @error_container;
-    color: @on_error_container;
-}
-/* Audio status */
-#pulseaudio.muted {
-    background: @outline_variant;
-    color: @on_surface_variant;
-}
-
-#pulseaudio {
-    background: @primary_container;
-    color: @on_primary_container;
-}
-
-/* CPU and Memory with gradient backgrounds */
-#cpu.warning {
-    background: @tertiary_container;
-    color: @on_tertiary_container;
-}
-
-#cpu.critical {
-    background: @error_container;
-    color: @on_error_container;
-}
-
-#memory.warning {
-    background: @tertiary_container;
-    color: @on_tertiary_container;
-}
-
-#memory.critical {
-    background: @error_container;
-    color: @on_error_container;
-}
-
-/* Clock with special styling */
 #clock {
-    color: @on_surface;
-    font-weight: bold;
+    margin: 0px 0px 0px 5px;
 }
-
-/* Bluetooth status */
-#bluetooth.on {
-    background: @secondary_container;
-    color: @on_secondary_container;
-}
-
-#bluetooth.off {
-    background: @surface_container;
-    color: @outline;
-}
-
-/* Tray with subtle background */
-#tray {
-    color: @on_surface;
-}
-
-/* Blink animation for urgent items */
-@keyframes blink {
-    0% { opacity: 1; }
-    100% { opacity: 0.5; }
-}
-
-

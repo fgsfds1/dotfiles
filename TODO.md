@@ -1,7 +1,15 @@
 # TODO
-- [ ] waybar more like macos top bar
+- [x] waybar more like macos top bar
+- [ ] check ghostty config weirdness (not applied on launch, applies on launching in term)
 - [ ] catpuccin static theme
+- - [x] ghostty
+- - [ ] gtk
+- - [ ] qt
 - [x] kitty cmd-c cmd-v
-- [ ] test insert-based copypaste
+- [x] test insert-based copypaste
 - [ ] fix nvim config
 - [ ] oh fuck nvim uses ctrl keybinds
+- [ ] fix nvim goddamn it
+- [ ] also fix nvim idents
+- [ ] vim-be-good
+- [ ] vim 99 prompt?

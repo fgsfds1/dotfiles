@@ -20,22 +20,29 @@ assets/fonts/
 
 # macOS-specific ignore list
 {{ if eq .chezmoi.os "darwin" }}
-dot_config/hypr/
-dot_config/hyprshell/
-dot_config/waybar/
-dot_config/dunst/
-dot_config/rofi/
-dot_config/gtk/
-dot_config/qt/
-dot_config/kitty/
-dot_config/matugen/
-dot_config/hypr/wallpaper_switcher.sh
+.config/hypr/
+.config/hyprshell/
+.config/waybar/
+.config/dunst/
+.config/rofi/
+.config/gtk/
+.config/qt/
+.config/kitty/
+.config/matugen/
+.config/hypr/wallpaper_switcher.sh
+.config/mimeapps.list
+.local/share/applications
+.local/share/applications/mimeapps.list
+
 {{ end }}
 
 # Git-related
 .git/
 .gitignore
 .gitattributes
+
+# Other project stuff
+TODO.md
 
 # Backup and temporary files
 **/*.swp

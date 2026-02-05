@@ -1,4 +1,5 @@
 # TODO
+- [ ] fix helium scaling? problem
 - [x] waybar more like macos top bar
 - [ ] check ghostty config weirdness (not applied on launch, applies on launching in term)
 - [ ] catpuccin static theme
@@ -7,6 +8,7 @@
 - - [ ] qt
 - [x] kitty cmd-c cmd-v
 - [x] test insert-based copypaste
+- [ ] split hyprland config?
 - [ ] fix nvim config
 - [ ] oh fuck nvim uses ctrl keybinds
 - [ ] fix nvim goddamn it

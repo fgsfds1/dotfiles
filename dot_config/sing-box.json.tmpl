@@ -27,7 +27,7 @@
       "type": "vless",
       "tag": "proxy-out",
       "server": "{{ .singbox.server }}",
-      "server_port": 443,
+      "server_port": {{ .singbox.port }},
       "uuid": "{{ .singbox.uuid }}",
       "flow": "xtls-rprx-vision",
       "tls": {
@@ -37,10 +37,10 @@
           "public_key": "{{ .singbox.public_key }}",
           "short_id": "{{ .singbox.short_id }}"
         },
-        "server_name": "marktplaats.nl",
+        "server_name": "{{ .singbox.sni }}",
         "utls": {
           "enabled": true,
-          "fingerprint": "firefox"
+          "fingerprint": "{{ .singbox.browserfingerprint }}"
         }
       }
     }

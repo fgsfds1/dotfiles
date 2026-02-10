@@ -10,8 +10,13 @@
 - [x] test insert-based copypaste
 - [ ] split hyprland config?
 - [ ] fix nvim config
+- - [ ] works on utsuho
+- - [ ] works on remilia
 - [ ] oh fuck nvim uses ctrl keybinds
 - [ ] fix nvim goddamn it
 - [ ] also fix nvim idents
 - [ ] vim-be-good
 - [ ] vim 99 prompt?
+- [ ] wallpaper switcher not working
+- [ ] three fucking waybars after unlock for some reason
+- [ ] fix tmux plugins

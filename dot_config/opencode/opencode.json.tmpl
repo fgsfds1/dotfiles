@@ -44,35 +44,8 @@
       }
     }{{ end }},
     "openrouter": {
-      "options": {
-        "baseURL": "https://openrouter.ai/api/v1",
-        "apiKey": {{ .opencode.openrouter_api_key | quote }}
-      },
       "models": {
-        "anthropic/claude-sonnet-4-5": {
-          "name": "Claude Sonnet 4.5"
-        },
-        "anthropic/claude-sonnet-4-5:online": {
-          "name": "Claude Sonnet 4.5 (native search)"
-        },
-        "x-ai/grok-code-fast-1": {
-          "name": "Grok Code Fast 1"
-        },
-        "x-ai/grok-code-fast-1:online": {
-          "name": "Grok Code Fast 1 (native search)"
-        },
-        "deepseek/deepseek-v3.2": {
-          "name": "DeepSeek V3.2"
-        },
-        "deepseek/deepseek-v3.2:online": {
-          "name": "DeepSeek V3.2 (Exa search)"
-        },
-        "qwen/qwen3-coder": {
-          "name": "Qwen3 Coder"
-        },
-        "qwen/qwen3-coder:online": {
-          "name": "Qwen3 Coder (Exa search)"
-        }
+        "x-ai/grok-code-fast-1:online": {}
       }
     }
   },

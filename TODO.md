@@ -33,3 +33,6 @@
 - - [ ] themes
 - - [ ] force apps to use wayland
 - - [ ] "fully configure hyprland
+- [ ] fix nvim indent
+- [ ] fix mimetypes
+- [ ] tmux config fix

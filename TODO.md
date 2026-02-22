@@ -1,5 +1,5 @@
 # TODO
-- [ ] fix helium scaling? problem
+- [x] fix helium scaling? problem
 - [x] waybar more like macos top bar
 - [ ] check ghostty config weirdness (not applied on launch, applies on launching in term)
 - [ ] catpuccin static theme
@@ -20,3 +20,16 @@
 - [ ] wallpaper switcher not working
 - [ ] three fucking waybars after unlock for some reason
 - [ ] fix tmux plugins
+- [ ] follow hyprland configuration at https://wiki.hypr.land/Getting-Started/Master-Tutorial/
+- - [ ] nvidia
+- - [ ] launching
+- - [ ] check preconfigured setups
+- - [ ] must-have software
+- - [ ] monitors
+- - [ ] useful utilities
+- - [ ] sway wiki
+- - [ ] awesome-hyprland
+- - [ ] cursors
+- - [ ] themes
+- - [ ] force apps to use wayland
+- - [ ] "fully configure hyprland

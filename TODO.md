@@ -34,9 +34,11 @@
 - - - [x] qt5wayland qt6wayland
 - - [x] monitors https://wiki.hypr.land/Configuring/Monitors/
 - - - [ ] color management?
-- - - [ ] 10 bit?
+- - - [x] 10 bit?
 - - - [x] vrr 2
-- - - - [ ] test vrr fullscreen
+- - - - [x] test vrr fullscreen - doesn't work, hmm.
+- - - - [x] add rule for browser not to enable vrr
+- - - - - [x] test that
 - - [ ] useful utilities
 - - [ ] sway wiki
 - - [ ] awesome-hyprland

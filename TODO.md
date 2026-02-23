@@ -21,11 +21,22 @@
 - [ ] three fucking waybars after unlock for some reason
 - [ ] fix tmux plugins
 - [ ] follow hyprland configuration at https://wiki.hypr.land/Getting-Started/Master-Tutorial/
-- - [ ] nvidia
+- - [x] nvidia
+- - - [ ] check va-api and (direct backend)?
 - - [ ] launching
+- - - [ ] greetd regreet?
 - - [ ] check preconfigured setups
-- - [ ] must-have software
-- - [ ] monitors
+- - [x] must-have software
+- - - [ ] configure dunst
+- - - [x] XDG desktop portal
+- - - - [ ] xdg picker system theme https://wiki.hypr.land/Hypr-Ecosystem/xdg-desktop-portal-hyprland/#share-picker-doesnt-use-the-system-theme
+- - - [x] hyprpolkitagent
+- - - [x] qt5wayland qt6wayland
+- - [x] monitors https://wiki.hypr.land/Configuring/Monitors/
+- - - [ ] color management?
+- - - [ ] 10 bit?
+- - - [x] vrr 2
+- - - - [ ] test vrr fullscreen
 - - [ ] useful utilities
 - - [ ] sway wiki
 - - [ ] awesome-hyprland

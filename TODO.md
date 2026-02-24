@@ -30,7 +30,9 @@
 - - - [ ] configure dunst
 - - - [x] XDG desktop portal
 - - - - [ ] xdg picker system theme https://wiki.hypr.land/Hypr-Ecosystem/xdg-desktop-portal-hyprland/#share-picker-doesnt-use-the-system-theme
+- - - - [ ] test portal btw (file open, share picker)
 - - - [x] hyprpolkitagent
+- - - - [ ] test theme
 - - - [x] qt5wayland qt6wayland
 - - [x] monitors https://wiki.hypr.land/Configuring/Monitors/
 - - - [ ] color management?
@@ -40,9 +42,36 @@
 - - - - [x] add rule for browser not to enable vrr
 - - - - - [x] test that
 - - [ ] useful utilities
+- - - [x] Must-Have
+- - - [ ] Hypr Ecosystem
+- - - [x] Status Bars
+- - - [x] App Launchers
+- - - [x] Wallpapers
+- - - - [ ] fix wallpaper script
+- - - [x] Screen Sharing
+- - - [x] App Clients
+- - - [ ] Hyprpicker color picker
+- - - [x] Clipboard Managers
+- - - - [ ] Make rofi cliphist show images?
+- - - [x] File Managers
+- - - - [ ] test nautilus theme
+- - - - [ ] test filepicker
+- - - - [ ] test addons
+- - - [ ] Other
+- - - - [ ] change switcher to try out `snappy switcher`
+- - - - [ ] hyprls?
+- - - - [ ] hyprshade
+- - - - [ ] overskride bluetooth gui
+- - - - [ ] udiskie automount
+- - - [x] Systemd startup
 - - [ ] sway wiki
+- - - [ ] image viewer
+- - - - [ ] oculante?
+- - - [ ] vnc server?
 - - [ ] awesome-hyprland
-- - [ ] cursors
+- - [x] cursors
+- - - [ ] see what nwg-look is generating cursor-wise and add that to chezmoi
+- - - [ ] add exec `hyprctl setcursor Adwaita 24` or some shit
 - - [ ] themes
 - - [ ] force apps to use wayland
 - - [ ] "fully configure hyprland

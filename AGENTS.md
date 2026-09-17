@@ -5,12 +5,12 @@ Supports Linux (Arch-based) and macOS (minimal setup).
 
 ## Repository Layout
 
-- `.chezmoi.toml.tmpl` - Config template that prompts for secrets on init
-- `.chezmoiignore.tmpl` - Platform filtering (excludes OS-specific configs)
+- `.chezmoi.toml.tmpl` - chezmoi self-config template
+- `.chezmoiexternal.toml` - External repos (nvim)
+- `.chezmoiignore` - Files never installed
 - `dot_config/` - All managed configs (dot_ prefix = . in destination)
-  - `gtk/`, `qt/` - App theming (Linux only)
+  - `ghostty/` - Terminal config
 - `dot_zshrc.tmpl` - Shell config with OS-specific sections
-- `scripts/` - Utility scripts (bootstrap, wallpapers, etc.)
 - `AGENTS.md` - This file (AI agent instructions)
 - `README.md` - Human-readable documentation
 
@@ -18,7 +18,7 @@ Supports Linux (Arch-based) and macOS (minimal setup).
 
 - `dot_*` → becomes `.` in home directory (e.g., `dot_zshrc` → `~/.zshrc`)
 - `*.tmpl` → template file, processed with Go templates
-- `.chezmoiignore.tmpl` → controls which files are installed per OS
+- `.chezmoiignore` → files never installed on any OS
 - Platform detection: `{{ if eq .chezmoi.os "darwin" }}` for macOS, `"linux"` for Linux
 
 ## Branches
@@ -34,10 +34,8 @@ Supports Linux (Arch-based) and macOS (minimal setup).
 - Destination: `~` (actual dotfiles after rendering)
 
 **Platform-specific behavior:**
-- `.chezmoiignore.tmpl` excludes Linux desktop configs on macOS
 - Templates use `{{ if eq .chezmoi.os }}` for OS-specific sections
-- Linux: Full desktop environment (Hyprland, Waybar, etc.)
-- macOS: Minimal (shell, terminal, no WM/status bar)
+- Both platforms: Minimal (shell, terminal, tmux, nvim)
 
 ## Secrets Management
 
@@ -51,9 +49,8 @@ Supports Linux (Arch-based) and macOS (minimal setup).
 
 **Before adding files, determine platform scope:**
 1. Ask: "Linux, macOS, or both?"
-2. Linux-only: Add to `.chezmoiignore.tmpl` with `{{ if eq .chezmoi.os "darwin" }}`
-3. Cross-platform with differences: Use `.tmpl` extension with conditionals
-4. Identical across platforms: Add as regular file
+2. Platform-specific: Use `.tmpl` extension with `{{ if eq .chezmoi.os }}` conditionals
+3. Identical across platforms: Add as regular file
 
 **Add files:**
 ```bash
@@ -84,16 +81,7 @@ chezmoi apply ~/.config/app/config  # Apply specific file
 ```
 
 **After applying, check affected programs:**
-- Hyprland configs → reload with `hyprctl reload` (auto via hook)
-- Waybar configs → `killall -SIGUSR1 waybar` (auto via hook)
 - Shell configs → source or restart shell
-
-## Post-Apply Hooks
-
-`.chezmoi.toml.tmpl` defines auto-reload for running programs:
-- Detects if waybar, Hyprland, rofi, dunst are running
-- Sends appropriate reload signals automatically
-- **Be aware:** `chezmoi apply` may reload running programs
 
 ## Git Workflow
 
@@ -129,8 +117,8 @@ chezmoi edit-config
 ## Testing on Remote Machine
 
 ```bash
-# Linux machine at 192.168.123.100
-ssh 192.168.123.100
+# Linux machine at 10.14.47.8 (utsuho)
+ssh 10.14.47.8
 
 # Test a branch
 chezmoi init --branch <branch-name>
@@ -178,7 +166,6 @@ chezmoi execute-template < file.tmpl  # Test template
 
 ## Special Files Reference
 
-- `.chezmoiignore.tmpl` - Controls which files install per OS
-- `.chezmoi.toml.tmpl` - Prompts for secrets, generates local config
-- `~/.config/chezmoi/chezmoi.toml` - Local config (NEVER in git)
-- Post-apply hook - Auto-reloads programs after apply
+- `.chezmoiignore` - Files never installed
+- `.chezmoi.toml.tmpl` - chezmoi self-config template
+- `~/.config/chezmoi/chezmoi.toml` - Rendered local config (NEVER in git)

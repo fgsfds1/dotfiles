@@ -1,0 +1,17 @@
+# Non-config files (should never be installed)
+README.md
+AGENTS.md
+
+# Working docs
+TODO.md
+
+# Git-related
+.git/
+.gitignore
+.gitattributes
+
+# Backup and temporary files
+**/*.swp
+**/*.swo
+**/*~
+**/.DS_Store

@@ -1,7 +1,7 @@
 # Dotfiles
 
 Cross-platform dotfiles managed with [chezmoi](https://www.chezmoi.io/).  
-Linux (Arch-based) gets full Hyprland desktop, macOS gets minimal terminal setup.
+Minimal terminal setup on both Linux (Arch-based) and macOS.
 
 ## Quick Start
 
@@ -21,18 +21,12 @@ chezmoi diff
 chezmoi apply
 ```
 
-During `chezmoi init`, you'll be prompted for secrets (if any).
-
 ## What's Included
 
-### Cross-Platform
 - **Shell**: ZSH with OS-specific templates
-
-### Linux Only
-- **GTK/Qt**: Themed applications
-
-### macOS Only
-- Minimal terminal setup (no window manager or status bar)
+- **Ghostty**: Terminal configuration
+- **Neovim**: External git repo (`kickstart-modular.nvim`), refreshed daily
+- **Tmux**: Session configuration
 
 ## Common Tasks
 
@@ -43,7 +37,7 @@ chezmoi update          # Pull from git and apply
 
 ### Edit Configs
 ```bash
-chezmoi edit ~/.config/hypr/hyprland.conf
+chezmoi edit ~/.config/ghostty/config
 chezmoi diff            # Preview changes
 chezmoi apply           # Apply changes
 ```
@@ -72,33 +66,9 @@ chezmoi apply
 ### File Naming
 - `dot_config/` → `~/.config/`
 - `*.tmpl` files are processed as Go templates
-- `.chezmoiignore.tmpl` controls which files install on which OS
-
-### Secrets Management
-- Secrets are prompted during `chezmoi init`
-- Stored locally in `~/.config/chezmoi/chezmoi.toml` (gitignored)
-- Templates reference secrets like `{{ .mysecret.value }}`
-- Only prompts are committed to git, never actual secrets
 
 ### Platform Detection
 Templates use `{{ if eq .chezmoi.os "darwin" }}` for macOS-specific sections and `"linux"` for Linux.
-
-## Configuration Details
-
-See individual README files in each config directory:
-- `dot_config/hypr/README.md` - Hyprland compositor
-- `dot_config/waybar/README.md` - Status bar
-- `dot_config/rofi/README.md` - Launcher
-- `dot_config/dunst/README.md` - Notifications
-- `dot_config/kitty/README.md` - Terminal
-- `dot_config/matugen/README.md` - Color scheme generator
-- `dot_config/gtk/README.md` - GTK theme
-- `dot_config/qt/README.md` - Qt theme
-
-## Scripts
-
-- `bootstrap.sh` - Initial setup (auto-detects OS)
-- `test-notifications.sh` - Test notification system
 
 ## Chezmoi Commands Reference
 
@@ -129,14 +99,6 @@ chezmoi forget <file>   # Stop managing
 chezmoi remove <file>   # Stop managing and delete
 ```
 
-## Post-Apply Hooks
-
-When you run `chezmoi apply`, the following programs are automatically reloaded if running:
-- Hyprland → `hyprctl reload`
-- Waybar → `killall -SIGUSR1 waybar`
-- Rofi → `killall rofi`
-- Dunst → `dunstctl reload`
-
 ## Contributing
 
 For development guidelines, see `AGENTS.md`.
@@ -145,15 +107,13 @@ For development guidelines, see `AGENTS.md`.
 
 ```
 .
-├── .chezmoi.toml.tmpl       # Prompts for secrets on init
-├── .chezmoiignore.tmpl      # Platform-specific file filtering
-├── dot_config/              # All configuration files
-│   ├── gtk/                 # GTK theme (Linux)
-│   └── qt/                  # Qt theme (Linux)
+├── .chezmoi.toml.tmpl       # chezmoi self-config template
+├── .chezmoiexternal.toml    # External repos (nvim)
+├── .chezmoiignore           # Files never installed
+├── dot_config/
+│   └── ghostty/config       # Ghostty terminal
+├── dot_tmux.conf            # Tmux config
 ├── dot_zshrc.tmpl           # Shell config with templates
-├── scripts/                 # Utility scripts
-├── images/                  # Wallpapers
-├── assets/                  # Fonts
 ├── AGENTS.md                # AI agent instructions
 └── README.md                # This file
 ```

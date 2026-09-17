@@ -1,0 +1,15 @@
+## packages
+- `libva_nvidia_driver` hardware acceleration va-api, from hyprland nvidia page
+- `xdg-desktop-portal-hyprland`
+- `hyprpolkitagent`
+- `qt5-wayland`
+- `qt6-wayland`
+- `dunst`
+- `pipewire`
+- `wireplumber`
+- that pipewire volume mixer thing, see waybar volume icon
+- `nautilus-open-any-terminal`
+- `nautilus-admin-gtk4`
+- `nautilus-image-converter`
+- `cliphist`
+- `rofi`

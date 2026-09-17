@@ -1,0 +1,4 @@
+# Ghostty configuration
+theme = Catppuccin Mocha
+font-size = 16
+window-inherit-font-size = true

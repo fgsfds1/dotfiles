@@ -73,7 +73,7 @@ main() {
     print_status "Installing applications..."
     install_package "kitty"
     install_package "nautilus"
-    install_package "firefox-developer-edition"
+    install_package "helium-browser-bin"
     install_package "nvim"
     install_package "zsh"
 
@@ -97,7 +97,7 @@ main() {
     print_status "Installing additional packages..."
     install_package "rofi"
     install_package "dunst"
-    install_package "swww"
+    install_package "awwww"
 
     print_status "All dependencies installed successfully!"
 }

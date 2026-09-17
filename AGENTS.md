@@ -11,7 +11,6 @@ Supports Linux (Arch-based, Hyprland desktop) and macOS (minimal setup).
   - `hypr/` - Hyprland compositor (Linux only)
   - `waybar/` - Status bar (Linux only)
   - `rofi/`, `dunst/`, `gtk/`, `qt/`, `kitty/`, `matugen/` - Desktop components (Linux only)
-  - `sing-box*.json*` - VPN config (cross-platform, uses secrets)
 - `dot_zshrc.tmpl` - Shell config with OS-specific sections
 - `scripts/` - Utility scripts (bootstrap, wallpapers, etc.)
 - `AGENTS.md` - This file (AI agent instructions)
@@ -46,9 +45,9 @@ Supports Linux (Arch-based, Hyprland desktop) and macOS (minimal setup).
 
 - `.chezmoi.toml.tmpl` defines prompts via `promptStringOnce`
 - Secrets prompted during `chezmoi init`, stored in `~/.config/chezmoi/chezmoi.toml` (gitignored)
-- Templates reference secrets: `{{ .singbox.server }}`, `{{ .singbox.uuid }}`, etc.
+- Templates reference secrets via `{{ .section.key }}`
 - **NEVER commit actual secrets** - only prompts go in git
-- Current secrets: sing-box (server, uuid, public_key, short_id)
+- Current secrets: none
 
 ## Adding New Configs
 
@@ -90,7 +89,6 @@ chezmoi apply ~/.config/app/config  # Apply specific file
 - Hyprland configs → reload with `hyprctl reload` (auto via hook)
 - Waybar configs → `killall -SIGUSR1 waybar` (auto via hook)
 - Shell configs → source or restart shell
-- Sing-box → restart sing-box service if running
 
 ## Post-Apply Hooks
 
@@ -115,7 +113,7 @@ git commit -m "Short message"   # Be succinct
 
 **Commit message style:**
 - Keep it short and succinct (one line preferred)
-- Format: "verb + what" (e.g., "Add sing-box config", "Fix waybar colors")
+- Format: "verb + what" (e.g., "Add waybar config", "Fix zshrc template")
 - NO marketing language ("COOL FEATURES", "BLAZING FAST", etc.)
 - NO excessive documentation in commit messages
 

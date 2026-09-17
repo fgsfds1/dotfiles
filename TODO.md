@@ -1,0 +1,80 @@
+# TODO
+- [x] fix helium scaling? problem
+- [x] waybar more like macos top bar
+- [ ] check ghostty config weirdness (not applied on launch, applies on launching in term)
+- [ ] catpuccin static theme
+- - [x] ghostty
+- - [ ] gtk
+- - [ ] qt
+- [x] kitty cmd-c cmd-v
+- [x] test insert-based copypaste
+- [ ] split hyprland config?
+- [ ] fix nvim config
+- - [ ] works on utsuho
+- - [ ] works on remilia
+- [ ] oh fuck nvim uses ctrl keybinds
+- [ ] fix nvim goddamn it
+- [ ] also fix nvim idents
+- [ ] vim-be-good
+- [ ] vim 99 prompt?
+- [ ] wallpaper switcher not working
+- [ ] three fucking waybars after unlock for some reason
+- [ ] fix tmux plugins
+- [ ] follow hyprland configuration at https://wiki.hypr.land/Getting-Started/Master-Tutorial/
+- - [x] nvidia
+- - - [ ] check va-api and (direct backend)?
+- - [ ] launching
+- - - [ ] greetd regreet?
+- - [ ] check preconfigured setups
+- - [x] must-have software
+- - - [ ] configure dunst
+- - - [x] XDG desktop portal
+- - - - [ ] xdg picker system theme https://wiki.hypr.land/Hypr-Ecosystem/xdg-desktop-portal-hyprland/#share-picker-doesnt-use-the-system-theme
+- - - - [ ] test portal btw (file open, share picker)
+- - - [x] hyprpolkitagent
+- - - - [ ] test theme
+- - - [x] qt5wayland qt6wayland
+- - [x] monitors https://wiki.hypr.land/Configuring/Monitors/
+- - - [ ] color management?
+- - - [x] 10 bit?
+- - - [x] vrr 2
+- - - - [x] test vrr fullscreen - doesn't work, hmm.
+- - - - [x] add rule for browser not to enable vrr
+- - - - - [x] test that
+- - [ ] useful utilities
+- - - [x] Must-Have
+- - - [ ] Hypr Ecosystem
+- - - [x] Status Bars
+- - - [x] App Launchers
+- - - [x] Wallpapers
+- - - - [ ] fix wallpaper script
+- - - [x] Screen Sharing
+- - - [x] App Clients
+- - - [ ] Hyprpicker color picker
+- - - [x] Clipboard Managers
+- - - - [ ] Make rofi cliphist show images?
+- - - [x] File Managers
+- - - - [ ] test nautilus theme
+- - - - [ ] test filepicker
+- - - - [ ] test addons
+- - - [ ] Other
+- - - - [ ] change switcher to try out `snappy switcher`
+- - - - [ ] hyprls?
+- - - - [ ] hyprshade
+- - - - [ ] overskride bluetooth gui
+- - - - [ ] udiskie automount
+- - - [x] Systemd startup
+- - [ ] sway wiki
+- - - [ ] image viewer
+- - - - [ ] oculante?
+- - - [ ] vnc server?
+- - [ ] awesome-hyprland
+- - [x] cursors
+- - - [ ] see what nwg-look is generating cursor-wise and add that to chezmoi
+- - - [ ] add exec `hyprctl setcursor Adwaita 24` or some shit
+- - [ ] themes
+- - [ ] force apps to use wayland
+- - [ ] "fully configure hyprland
+- [ ] fix nvim indent
+- [ ] fix mimetypes
+- [ ] tmux config fix

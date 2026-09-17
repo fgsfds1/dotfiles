@@ -21,13 +21,12 @@ chezmoi diff
 chezmoi apply
 ```
 
-During `chezmoi init`, you'll be prompted for secrets (sing-box VPN credentials, etc.).
+During `chezmoi init`, you'll be prompted for secrets (if any).
 
 ## What's Included
 
 ### Cross-Platform
 - **Shell**: ZSH with OS-specific templates
-- **Sing-box**: VPN configuration with encrypted secrets
 
 ### Linux Only
 - **Hyprland**: Wayland compositor with idle/lock support
@@ -84,7 +83,7 @@ chezmoi apply
 ### Secrets Management
 - Secrets are prompted during `chezmoi init`
 - Stored locally in `~/.config/chezmoi/chezmoi.toml` (gitignored)
-- Templates reference secrets like `{{ .singbox.server }}`
+- Templates reference secrets like `{{ .mysecret.value }}`
 - Only prompts are committed to git, never actual secrets
 
 ### Platform Detection
@@ -105,7 +104,6 @@ See individual README files in each config directory:
 ## Scripts
 
 - `bootstrap.sh` - Initial setup (auto-detects OS)
-- `random_wallpaper.sh` - Set random wallpaper
 - `test-notifications.sh` - Test notification system
 
 ## Chezmoi Commands Reference
@@ -163,8 +161,7 @@ For development guidelines, see `AGENTS.md`.
 │   ├── kitty/               # Terminal (Linux)
 │   ├── matugen/             # Color generator (Linux)
 │   ├── gtk/                 # GTK theme (Linux)
-│   ├── qt/                  # Qt theme (Linux)
-│   └── sing-box*.json*      # VPN config (cross-platform)
+│   └── qt/                  # Qt theme (Linux)
 ├── dot_zshrc.tmpl           # Shell config with templates
 ├── scripts/                 # Utility scripts
 ├── images/                  # Wallpapers

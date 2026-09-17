@@ -29,12 +29,6 @@ During `chezmoi init`, you'll be prompted for secrets (if any).
 - **Shell**: ZSH with OS-specific templates
 
 ### Linux Only
-- **Hyprland**: Wayland compositor with idle/lock support
-- **Waybar**: Status bar with system info
-- **Rofi**: Application launcher
-- **Dunst**: Notification daemon
-- **Kitty**: Terminal emulator
-- **Matugen**: Automatic color scheme generator
 - **GTK/Qt**: Themed applications
 
 ### macOS Only
@@ -154,12 +148,6 @@ For development guidelines, see `AGENTS.md`.
 ├── .chezmoi.toml.tmpl       # Prompts for secrets on init
 ├── .chezmoiignore.tmpl      # Platform-specific file filtering
 ├── dot_config/              # All configuration files
-│   ├── hypr/                # Hyprland compositor (Linux)
-│   ├── waybar/              # Status bar (Linux)
-│   ├── rofi/                # Launcher (Linux)
-│   ├── dunst/               # Notifications (Linux)
-│   ├── kitty/               # Terminal (Linux)
-│   ├── matugen/             # Color generator (Linux)
 │   ├── gtk/                 # GTK theme (Linux)
 │   └── qt/                  # Qt theme (Linux)
 ├── dot_zshrc.tmpl           # Shell config with templates

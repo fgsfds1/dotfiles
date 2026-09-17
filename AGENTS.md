@@ -1,16 +1,14 @@
 # Instructions for AI Agents
 
 This is a cross-platform dotfiles repository managed with chezmoi.
-Supports Linux (Arch-based, Hyprland desktop) and macOS (minimal setup).
+Supports Linux (Arch-based) and macOS (minimal setup).
 
 ## Repository Layout
 
 - `.chezmoi.toml.tmpl` - Config template that prompts for secrets on init
 - `.chezmoiignore.tmpl` - Platform filtering (excludes OS-specific configs)
 - `dot_config/` - All managed configs (dot_ prefix = . in destination)
-  - `hypr/` - Hyprland compositor (Linux only)
-  - `waybar/` - Status bar (Linux only)
-  - `rofi/`, `dunst/`, `gtk/`, `qt/`, `kitty/`, `matugen/` - Desktop components (Linux only)
+  - `gtk/`, `qt/` - App theming (Linux only)
 - `dot_zshrc.tmpl` - Shell config with OS-specific sections
 - `scripts/` - Utility scripts (bootstrap, wallpapers, etc.)
 - `AGENTS.md` - This file (AI agent instructions)

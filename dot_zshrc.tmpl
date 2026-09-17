@@ -22,9 +22,16 @@ ta() {
 }
 
 # Cross-platform PATH
+export PATH="$HOME/.local/bin:$PATH"
 {{- if eq .chezmoi.os "linux" }}
-export PATH="/home/lw/.local/bin:$PATH"
-export PATH="/home/lw/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+{{- end }}
+
+# Pi firecrawl extension (self-hosted on utsuho)
+{{- if eq .chezmoi.hostname "utsuho" }}
+export PI_FIRECRAWL_URL="http://localhost:3002"
+{{- else }}
+export PI_FIRECRAWL_URL="http://10.14.47.8:3002"
 {{- end }}
 
 # macOS-specific additions
@@ -33,13 +40,22 @@ export PATH="/home/lw/.cargo/bin:$PATH"
 export PATH="$PATH:/Users/lw/.lmstudio/bin"
 
 # Homebrew Python
-alias python3="/opt/homebrew/bin/python3.10"
-alias python="/opt/homebrew/bin/python3.10"
+alias python3="/opt/homebrew/bin/python3"
+alias python="/opt/homebrew/bin/python3"
 
 # iTerm2 integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+autoload -Uz compinit && compinit -C
+# <<< grok installer <<<
 {{- end }}
 
 # Cross-platform tool integrations (fzf and OpenCode work on both)
 source <(fzf --zsh)
-source <(opencode completion)
+command -v opencode >/dev/null && source <(opencode completion)
+{{- if eq .chezmoi.os "linux" }}
+source <(fnm env)
+{{- end }}

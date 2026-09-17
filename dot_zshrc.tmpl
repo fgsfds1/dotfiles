@@ -53,9 +53,8 @@ autoload -Uz compinit && compinit -C
 # <<< grok installer <<<
 {{- end }}
 
-# Cross-platform tool integrations (fzf and OpenCode work on both)
+# Cross-platform tool integrations (fzf works on both)
 source <(fzf --zsh)
-command -v opencode >/dev/null && source <(opencode completion)
 {{- if eq .chezmoi.os "linux" }}
 source <(fnm env)
 {{- end }}

@@ -6,7 +6,6 @@ Supports Linux (Arch-based) and macOS (minimal setup).
 ## Repository Layout
 
 - `.chezmoi.toml.tmpl` - chezmoi self-config template
-- `.chezmoiexternal.toml` - External repos (nvim)
 - `.chezmoiignore` - Files never installed
 - `dot_config/` - All managed configs (dot_ prefix = . in destination)
   - `ghostty/` - Terminal config

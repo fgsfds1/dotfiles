@@ -27,7 +27,12 @@ return {
       vim.api.nvim_create_autocmd('FileType', {
         pattern = { '*' },
         callback = function(ev)
-          vim.treesitter.start(ev.buf)
+          -- On nvim 0.12 `vim.treesitter.start()` asserts when no parser is
+          -- installed for the buffer's filetype (e.g. fidget/which-key
+          -- internal buffers); only start it when a parser is available.
+          if vim.treesitter.get_parser(ev.buf) then
+            vim.treesitter.start(ev.buf)
+          end
           -- Treesitter highlighting disables regex syntax by default; keep it
           -- for ruby (was `additional_vim_regex_highlighting = { 'ruby' }` on
           -- the old master branch).

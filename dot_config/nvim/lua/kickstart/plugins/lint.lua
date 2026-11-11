@@ -45,13 +45,32 @@ return {
       -- Create autocommand which carries out the actual linting
       -- on the specified events.
       local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
+
+      -- Only lint when at least one linter for this filetype is actually
+      -- installed on PATH; otherwise nvim-lint fails with
+      -- "Error running <linter>: ENOENT: no such file or directory".
+      local function has_available_linter()
+        local linters = lint.linters_by_ft[vim.bo.filetype]
+        if not linters then
+          return false
+        end
+        for _, name in ipairs(linters) do
+          local spec = lint.linters[name]
+          local cmd = (spec and type(spec.cmd) == 'string' and spec.cmd) or name
+          if vim.fn.executable(cmd) == 1 then
+            return true
+          end
+        end
+        return false
+      end
+
       vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
         group = lint_augroup,
         callback = function()
           -- Only run the linter in buffers that you can modify in order to
           -- avoid superfluous noise, notably within the handy LSP pop-ups that
           -- describe the hovered symbol using Markdown.
-          if vim.bo.modifiable then
+          if vim.bo.modifiable and has_available_linter() then
             lint.try_lint()
           end
         end,

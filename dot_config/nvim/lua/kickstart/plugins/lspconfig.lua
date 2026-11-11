@@ -291,6 +291,7 @@ return {
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
         'luacheck', -- Used to lint Lua code
+        'markdownlint', -- Used to lint Markdown (nvim-lint: linters_by_ft.markdown)
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

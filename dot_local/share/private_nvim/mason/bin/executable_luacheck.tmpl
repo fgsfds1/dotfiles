@@ -1,0 +1,7 @@
+#!/bin/sh
+# Run the pinned source checkout using Lua 5.1 semantics.
+DEPS="$HOME/.local/share/nvim/mason/packages/luacheck"
+LUACHECK_HOME="$DEPS/luacheck"
+exec env LUA_PATH="$LUACHECK_HOME/src/?.lua;$LUACHECK_HOME/src/?/init.lua;$DEPS/argparse/src/?.lua;;" \
+         LUA_CPATH="$DEPS/luafilesystem/src/?.so;;" \
+{{ if eq .chezmoi.os "darwin" }}         '{{ joinPath (output "brew" "--prefix" "luajit" | trim) "bin/luajit" }}'{{ else }}         lua5.1{{ end }} "$LUACHECK_HOME/bin/luacheck.lua" "$@"

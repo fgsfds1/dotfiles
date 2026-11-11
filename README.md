@@ -110,6 +110,13 @@ installed.
 `mason-tool-installer` auto-installs the `ensure_installed` list from
 `dot_config/nvim/lua/kickstart/plugins/lspconfig.lua`.
 
+Lua linting uses a chezmoi-managed `luacheck` wrapper in
+`~/.local/share/nvim/mason/bin/`. The setup script checks out pinned luacheck,
+argparse, and LuaFileSystem sources and compiles LuaFileSystem locally.
+It requires `git`, `make`, a C compiler, and Lua 5.1 headers on Linux
+(`lua51` on Arch), or Homebrew `luajit` on macOS. System Lua is unchanged.
+Do not install or update luacheck through Mason; chezmoi owns this wrapper.
+
 ## How It Works
 
 ### Architecture

@@ -1,0 +1,25 @@
+#!/bin/sh
+set -eu
+
+# Keep native modules local to each machine; never sync compiled .so files.
+deps="$HOME/.local/share/nvim/mason/packages/luacheck"
+mkdir -p "$deps"
+checkout() {
+  name=$1 repo=$2 revision=$3
+  if [ ! -d "$deps/$name/.git" ]; then
+    git clone "$repo" "$deps/$name"
+  fi
+  git -C "$deps/$name" checkout --detach "$revision"
+}
+checkout luacheck https://github.com/luarocks/luacheck 2f764bdcabe8b7c19deadf0e9bb2adc19df1a4c5
+checkout argparse https://github.com/mpeterv/argparse 412e6aca393e365f92c0315dfe50181b193f1ace
+checkout luafilesystem https://github.com/lunarmodules/luafilesystem 146ab458e821cd7617892099fe8e6e399b46185c
+
+{{ if eq .chezmoi.os "darwin" -}}
+luajit_prefix='{{ output "brew" "--prefix" "luajit" | trim }}'
+make -C "$deps/luafilesystem" clean
+make -C "$deps/luafilesystem" LUA_INC="-I$luajit_prefix/include/luajit-2.1" LIB_OPTION='-bundle -undefined dynamic_lookup' MACOSX_DEPLOYMENT_TARGET=11.0
+{{ else -}}
+make -C "$deps/luafilesystem" clean
+make -C "$deps/luafilesystem" LUA_VERSION=5.1
+{{ end -}}

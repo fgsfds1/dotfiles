@@ -290,7 +290,7 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'luacheck', -- Used to lint Lua code
+        -- luacheck is provisioned by chezmoi with a Lua 5.1-compatible runtime.
         'markdownlint', -- Used to lint Markdown (nvim-lint: linters_by_ft.markdown)
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }

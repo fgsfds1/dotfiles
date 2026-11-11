@@ -207,6 +207,51 @@ return {
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      -- LÖVE (love2d) support: definitions cloned from the community addon
+      -- https://github.com/LuaCATS/love2d (the one lua_ls ships as a built-in addon).
+      -- Keep it fresh with: git -C ~/.local/share/nvim/lsp/love2d pull
+      local love_ls_settings = {
+        Lua = {
+          completion = {
+            callSnippet = 'Replace',
+          },
+          diagnostics = {
+            globals = { 'love' }, -- safety net in case the library fails to load
+            -- LÖVE projects redefine the engine's callbacks (love.load, love.update, ...),
+            -- which the definitions also declare; don't warn about that.
+            disable = { 'duplicate-set-field' },
+          },
+          runtime = {
+            version = 'LuaJIT', -- LÖVE's default runtime
+            special = {
+              ['love.filesystem.load'] = 'loadfile',
+            },
+          },
+          workspace = {
+            -- NOTE: plain string form (not { path = ... }): the table form's `~`
+            -- is not expanded when settings arrive via workspace/didChangeConfiguration.
+            library = {
+              '~/.local/share/nvim/lsp/love2d/library',
+            },
+          },
+          -- Inlay hints (toggle with <leader>th once the LSP is attached)
+          hint = {
+            enable = true,
+            paramName = true,
+            paramType = false,
+            arrayIndex = false,
+            setType = false,
+          },
+        },
+      }
+
+      -- Nvim 0.11+ can start lua_ls via the native vim.lsp.config autostart (lazydev's
+      -- integration registers it), in which case the old-style setup() below reuses that
+      -- client and its `settings` get ignored. Register the settings natively too.
+      if vim.lsp.config then
+        vim.lsp.config('lua_ls', { settings = love_ls_settings })
+      end
+
       local servers = {
         -- clangd = {},
         gopls = {},
@@ -225,15 +270,7 @@ return {
           -- cmd = { ... },
           -- filetypes = { ... },
           -- capabilities = {},
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
-            },
-          },
+          settings = love_ls_settings,
         },
       }
 
@@ -253,6 +290,7 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'luacheck', -- Used to lint Lua code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

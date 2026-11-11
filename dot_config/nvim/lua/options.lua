@@ -26,6 +26,13 @@ end)
 -- Enable break indent
 vim.o.breakindent = true
 
+-- Use spaces instead of tabs, 2 spaces per tab
+--  See `:help 'expandtab'`, `:help 'tabstop'`, `:help 'shiftwidth'`
+vim.o.expandtab = true   -- insert spaces when you press <Tab>
+vim.o.tabstop = 2        -- display width of existing tab characters
+vim.o.shiftwidth = 2     -- width for auto-indent (>> / <<, LSP formatting)
+vim.o.softtabstop = 2    -- <BS> and <Tab> behave as if tabstop = 2
+
 -- Save undo history
 vim.o.undofile = true
 

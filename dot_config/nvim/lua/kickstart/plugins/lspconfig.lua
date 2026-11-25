@@ -245,17 +245,10 @@ return {
         },
       }
 
-      -- Nvim 0.11+ can start lua_ls via the native vim.lsp.config autostart (lazydev's
-      -- integration registers it), in which case the old-style setup() below reuses that
-      -- client and its `settings` get ignored. Register the settings natively too.
-      if vim.lsp.config then
-        vim.lsp.config('lua_ls', { settings = love_ls_settings })
-      end
-
       local servers = {
         -- clangd = {},
         gopls = {},
-        -- pyright = {},
+        pyright = {}, -- Python (mason installs `pyright`; `basedpyright` is a drop-in alternative)
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -295,20 +288,29 @@ return {
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-      require('mason-lspconfig').setup {
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-        automatic_installation = false,
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for ts_ls)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-      }
+      -- Configure and enable the servers with Neovim's *native* LSP config (0.11+).
+      --
+      -- nvim-lspconfig v2 ships its server definitions as `lsp/<name>.lua` runtime
+      -- files, so `vim.lsp.config` already knows about them; `vim.lsp.config(name, ...)`
+      -- deep-merges our overrides on top, and `vim.lsp.enable(name)` starts the client
+      -- when a buffer of a matching filetype is opened.
+      -- The old `require('lspconfig')[name].setup()` "framework" is deprecated and is
+      -- removed in nvim-lspconfig v3.0.0, so it is no longer used here.
+      --
+      -- To disable a feature of a single server (e.g. formatting for ts_ls), add a
+      -- table entry under `servers` above -- `settings`, `cmd`, `filetypes`,
+      -- `capabilities` are all valid keys.
+      for name, overrides in pairs(servers) do
+        overrides.capabilities = vim.tbl_deep_extend('force', {}, capabilities, overrides.capabilities or {})
+        vim.lsp.config(name, overrides)
+      end
+      vim.lsp.enable(vim.tbl_keys(servers))
+
+      -- Mason here is only an installer: mason-tool-installer (above) provisions the
+      -- servers and CLI tools. `automatic_enable = false` keeps the `servers` table
+      -- above as the single source of truth for what actually gets enabled; drop it
+      -- (default is true) to have Mason auto-enable every server it has installed.
+      require('mason-lspconfig').setup { ensure_installed = {}, automatic_enable = false }
     end,
   },
 }

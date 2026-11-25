@@ -10,6 +10,11 @@ return {
       --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
 
+      -- Toggle line comments: `gc` works in Normal *and* Visual/V-line/Block
+      -- (`gcc` = current line, `gca` = textobject for the surrounding comment).
+      -- Comment markers come from 'commentstring', so `#` for Python, `//` for Go, etc.
+      require('mini.comment').setup()
+
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
